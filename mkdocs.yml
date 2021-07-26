@@ -1,0 +1,34 @@
+# Project Information
+site_name: ccbr1060 analysis)
+site_author: Vishal Koparde, Ph.D.
+# Repository
+repo_name: kopardev/ccbr1060
+repo_url: https://github.com/kopardev/ccbr1060
+
+# Copyright
+copyright: Copyright &copy; 2021 CCBR
+
+# Configuration
+theme:
+  name: material
+  palette:
+    scheme: default
+
+plugins:
+  - search
+
+# Customization
+extra:
+  social:
+    - icon: fontawesome/solid/users
+      link: http://bioinformatics.cancer.gov
+    - icon: fontawesome/brands/github
+      link: https://github.com/CCBR
+
+# Page Tree
+nav:
+  - Home: index.md
+  # - Flowchart: flowchart.md
+  # - Tutorial: tutorial.md
+  # - References: references.md
+  # - Versions: versions.md
