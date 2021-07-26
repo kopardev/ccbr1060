@@ -1,0 +1,577 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <meta name="author" content="Vishal Koparde, Ph.D.">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.2">
+    
+    
+      
+        <title>Detection - ccbr1060</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.19190aaf.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.24b84193.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+      
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#finding-consensus-shrna-integration-sites-across-all-samples" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href=".." title="ccbr1060" class="md-header-nav__button md-logo" aria-label="ccbr1060">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            ccbr1060
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Detection
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/kopardev/ccbr1060/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kopardev/ccbr1060
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="ccbr1060" class="md-nav__button md-logo" aria-label="ccbr1060">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    ccbr1060
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/kopardev/ccbr1060/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kopardev/ccbr1060
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." class="md-nav__link">
+      Outline
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Detection
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      Detection
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#finding-consensus-shrna-integration-sites-across-all-samples" class="md-nav__link">
+    Finding consensus shRNA integration sites across all samples
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#finding-consensus-shrna-integration-sites-across-all-samples" class="md-nav__link">
+    Finding consensus shRNA integration sites across all samples
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/kopardev/ccbr1060/edit/master/docs/shRNA_detection.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  <h1>Detection</h1>
+                
+                <h2 id="finding-consensus-shrna-integration-sites-across-all-samples">Finding consensus shRNA integration sites across all samples</h2>
+<p><code>/data/CCBR/projects/ccbr1060/Hg38_shRNA_hybrid/bams_withoutChimericJunctions</code> has the results for running STAR with chimeric junctions reported for each sample as a tab-delimited file.</p>
+<pre><code class="language-bash">(base) kopardevn@biowulf 11:00 PM /data/CCBR/projects/ccbr1060/Hg38_shRNA_hybrid/bams_withoutChimericJunctions
+ HEADNODE! % find . -name &quot;*_p1.Chimeric.out.junction&quot;
+./test5/test5_p1.Chimeric.out.junction
+./test4/test4_p1.Chimeric.out.junction
+./test2/test2_p1.Chimeric.out.junction
+./test3/test3_p1.Chimeric.out.junction
+./test1/test1_p1.Chimeric.out.junction
+./test8/test8_p1.Chimeric.out.junction
+./test6/test6_p1.Chimeric.out.junction
+./test7/test7_p1.Chimeric.out.junction
+</code></pre>
+<p>Now I filter each of these files to only look at chimeric junctions involving shRNA, i.e., either the donor or the accepter of the junction must be shRNA the report the results in <code>filtered.chimeric.junctions</code>. These junctions have also been filtered to show only those which have greater than 5 reads of support.</p>
+<pre><code class="language-bash"> % sort -k1,1nr filtered.chimeric.junctions|head
+2089    chr5    73642754    test7
+2087    chr5    73642754    test5
+2018    chr5    73642754    test6
+1908    chr5    73642754    test8
+585 chr5    73643317    test5
+506 chr5    73643317    test8
+484 chr5    73643317    test7
+475 chr5    73643317    test6
+449 chr7    44881390    test5
+398 chr7    44881390    test6
+ % sort -k1,1nr filtered.chimeric.junctions|tail
+6   chr9    9442130 test6
+6   chr9    9442137 test7
+6   chr9    9442158 test8
+6   chr9    9442170 test7
+6   chr9    9442234 test6
+6   chr9    9442235 test6
+6   chr9    9442241 test7
+6   chr9    9442241 test8
+6   chr9    9442242 test5
+6   chrM    2046    test7
+</code></pre>
+<p>The columns here are:</p>
+<ol>
+<li>Number of read supporting the junction per sample</li>
+<li>Host chromosome</li>
+<li>Host coordinate</li>
+<li>Sample name</li>
+</ol>
+<p>Next, we aggregate junctions accross multiple samples in <code>filtered.chimeric.junctions.aggregate_across_samples</code>. If a host chromosome + host coordinate combination is seen in multiple samples, then the counts are summed up and a single row is reported.</p>
+<pre><code class="language-bash"> % sort -k3,3nr filtered.chimeric.junctions.aggregate_across_samples|head
+chr5    73642754    8191
+chr5    73643317    2152
+chr7    44881390    1870
+chr6    33272627    1335
+chr1    189437490   752
+chr7    44881427    670
+chr12   124914855   631
+chr13   95133445    613
+chr2    11332341    551
+chr5    113546953   492
+ % sort -k3,3nr filtered.chimeric.junctions.aggregate_across_samples|tail
+chr6    52995836    6
+chr6    52995864    6
+chr6    52995871    6
+chr6    52995891    6
+chr9    73160812    6
+chr9    9442121 6
+chr9    9442130 6
+chr9    9442158 6
+chr9    9442170 6
+chrM    2046    6
+</code></pre>
+<p>The columns here are:</p>
+<ol>
+<li>Host chromosome</li>
+<li>Host coordinate</li>
+<li>Total number of reads supporting this junctions, all samples combined</li>
+</ol>
+<p><code>create_integration_windows.py</code> python script then takes the above file and determines plausible shRNA integration windows.</p>
+<ul>
+<li>Integration host sites within 100bp of each other are grouped together as a <em>site-list</em></li>
+<li>The coordinate of the <em>site</em> with the highest read support within a <em>site-list</em> is used to represent the coordinate of the entire <em>site-list</em></li>
+<li>100bp buffer is applied to either side of this representative coordinate to create the <code>integration_windows.bed</code> </li>
+</ul>
+<p>Overlapping windows are simply merged together with bedtools.</p>
+<p>This leads to a total of 54 putative shRNA integration sites:</p>
+<pre><code class="language-bash"> % wc -l integration_windows.bed
+54 integration_windows.bed
+</code></pre>
+<p>These are then annotated with <code>genes.bed6</code> for hg38 (alignment is done against hg38 by PJ)</p>
+<pre><code class="language-bash"> % head integration_windows.bed.annotated.txt
+chr1    632158  632357  chr1    631074  632616  ENSG00000237973.1|MTCO1P12  .   +
+chr1    28507280    28507479    chr1    28507366    28507571    ENSG00000274266.1|SNORA73A  .   +
+chr1    71072449    71072648    chr1    71063291    71081289    ENSG00000132485.14|ZRANB2   .   -
+chr1    71076470    71076669    chr1    71063291    71081289    ENSG00000132485.14|ZRANB2   .   -
+chr1    71076694    71076893    chr1    71063291    71081289    ENSG00000132485.14|ZRANB2   .   -
+chr1    189437275   189437589   .   -1  -1  .   -1  .
+chr1    212615110   212615309   chr1    212565334   212620777   ENSG00000162772.17|ATF3 .   +
+chr1    212620006   212620205   chr1    212565334   212620777   ENSG00000162772.17|ATF3 .   +
+chr11   65504957    65505156    chr11   65497688    65506516    ENSG00000251562.8|MALAT1    .   +
+chr12   57517324    57517523    chr12   57516588    57521737    ENSG00000175197.13|DDIT3    .   -
+</code></pre>
+<p>3 of these are in intergenic regions... others are withing gene boundaries.</p>
+<pre><code class="language-bash"> % awk -F&quot;\t&quot; '{if ($7==&quot;.&quot;){print}}' integration_windows.bed.annotated.txt
+chr1    189437275   189437589   .   -1  -1  .   -1  .
+chr21   8258274 8258649 .   -1  -1  .   -1  .
+chr5    113512841   113513040   .   -1  -1  .   -1  .
+</code></pre>
+<p>The genic 51 integration sites fall in 35 genes</p>
+<pre><code class="language-bash"> % cut -f7 integration_windows.bed.annotated.txt | sort | uniq |grep ENS
+ENSG00000047188.16|YTHDC2
+ENSG00000067141.17|NEO1
+ENSG00000106511.6|MEOX2
+ENSG00000124209.4|RAB22A
+ENSG00000125257.16|ABCC4
+ENSG00000132485.14|ZRANB2
+ENSG00000134318.14|ROCK2
+ENSG00000135046.14|ANXA1
+ENSG00000135220.11|UGT2A3
+ENSG00000137154.13|RPS6
+ENSG00000141279.17|NPEPPS
+ENSG00000146676.10|PURB
+ENSG00000150991.15|UBC
+ENSG00000158019.21|BABAM2
+ENSG00000162772.17|ATF3
+ENSG00000175197.13|DDIT3
+ENSG00000200488.1|RN7SKP203
+ENSG00000202198.1|7SK
+ENSG00000210082.2|MT-RNR2
+ENSG00000214944.10|ARHGEF28
+ENSG00000223501.9|VPS52
+ENSG00000230897.1|RPS18P12
+ENSG00000231500.7|RPS18
+ENSG00000237973.1|MTCO1P12
+ENSG00000240877.3|RN7SL521P
+ENSG00000251562.8|MALAT1
+ENSG00000259001.3|RPPH1
+ENSG00000261499.2|CH17-260O16.1
+ENSG00000263740.2|RN7SL4P
+ENSG00000265735.2|RN7SL5P
+ENSG00000274266.1|SNORA73A
+ENSG00000276168.1|RN7SL1
+ENSG00000278771.1|RN7SL3
+ENSG00000280441.3|CH507-528H12.1
+ENSG00000282885.2|RP11-596C23.6
+</code></pre>
+<p>There are 15 lab-verified integration sites.</p>
+<pre><code class="language-bash"> % more lab_verified_sites.bed
+chr1    71542253    71542253    .   .   +
+chr1    189406937   189406937   .   .   -
+chr12   132507964   132507964   .   .   -
+chr13   95784002    95784002    .   .   +
+chr14   84280651    84280651    .   .   +
+chr15   73354871    73354871    .   .   -
+chr17   36364840    36364840    .   .   +
+chr2    11472501    11472501    .   .   +
+chr2    28211890    28211890    .   .   -
+chr4    69801325    69801325    .   .   -
+chr5    72939142    72939142    .   .   -
+chr5    112903625   112903625   .   .   -
+chr6    33223194    33223194    .   .   +
+chr7    15721280    15721280    .   .   -
+chr7    44920734    44920734    .   .   +
+ % more lab_verified_sites.annotated.bed
+chr1    71076570    71076570    chr1:71076570-71076570|+|ENSG00000132485.14|ZRANB2  .   +
+chr1    189437807   189437807   chr1:189437807-189437807|-|.    .   -
+chr12   132023419   132023419   chr12:132023419-132023419|-|ENSG00000183495.14|EP400    .   -
+chr13   95131748    95131748    chr13:95131748-95131748|+|ENSG00000125257.16|ABCC4  .   +
+chr14   83814307    83814307    chr14:83814307-83814307|+|. .   +
+chr15   73062530    73062530    chr15:73062530-73062530|-|ENSG00000067141.17|NEO1   .   -
+chr17   38208780    38208780    chr17:38208780-38208780|+|ENSG00000274487.2|NPEPPSP1    .   +
+chr2    11332375    11332375    chr2:11332375-11332375|+|ENSG00000134318.14|ROCK2   .   +
+chr2    27989023    27989023    chr2:27989023-27989023|-|ENSG00000158019.21|BABAM2  .   -
+chr4    68935607    68935607    chr4:68935607-68935607|-|ENSG00000135220.11|UGT2A3  .   -
+chr5    73643317    73643317    chr5:73643317-73643317|-|ENSG00000214944.10|ARHGEF28    .   -
+chr5    113567928   113567928   chr5:113567928-113567928|-|ENSG00000047188.16|YTHDC2    .   -
+chr6    33255417    33255417    chr6:33255417-33255417|+|ENSG00000223501.9|VPS52    .   +
+chr7    15681655    15681655    chr7:15681655-15681655|-|ENSG00000106511.6|MEOX2    .   -
+chr7    44881135    44881135    chr7:44881135-44881135|+|ENSG00000146676.10|PURB    .   +
+</code></pre>
+<p>12 of the 54 bioinformatically found integration sites are in intergenic regions</p>
+<pre><code class="language-bash"> % grep -c &quot;\.|-1&quot; integration_windows.nearest_lab_verified_site_lookup.txt
+12
+</code></pre>
+<p>9 of the 15 lab-verified annotations sites are within the integration boundaries found bioinformatically</p>
+<pre><code class="language-bash"> % grep -c &quot;|0&quot; integration_windows.nearest_lab_verified_site_lookup.txt
+9
+ % grep &quot;|0&quot; integration_windows.nearest_lab_verified_site_lookup.txt
+chr1:71076470-71076669  chr1:71076570-71076570|+|ENSG00000132485.14|ZRANB2|0
+chr13:95131648-95131847 chr13:95131748-95131748|+|ENSG00000125257.16|ABCC4|0
+chr15:73062431-73062630 chr15:73062530-73062530|-|ENSG00000067141.17|NEO1|0
+chr2:11332241-11332440  chr2:11332375-11332375|+|ENSG00000134318.14|ROCK2|0
+chr5:73643062-73643416  chr5:73643317-73643317|-|ENSG00000214944.10|ARHGEF28|0
+chr5:113567827-113568026    chr5:113567928-113567928|-|ENSG00000047188.16|YTHDC2|0
+chr6:33255317-33255516  chr6:33255417-33255417|+|ENSG00000223501.9|VPS52|0
+chr7:15681556-15681755  chr7:15681655-15681655|-|ENSG00000106511.6|MEOX2|0
+chr7:44881036-44881235  chr7:44881135-44881135|+|ENSG00000146676.10|PURB|0
+</code></pre>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href=".." class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Outline
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2021 CCBR
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="http://bioinformatics.cancer.gov" target="_blank" rel="noopener" title="bioinformatics.cancer.gov" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M96 224c35.3 0 64-28.7 64-64s-28.7-64-64-64-64 28.7-64 64 28.7 64 64 64zm448 0c35.3 0 64-28.7 64-64s-28.7-64-64-64-64 28.7-64 64 28.7 64 64 64zm32 32h-64c-17.6 0-33.5 7.1-45.1 18.6 40.3 22.1 68.9 62 75.1 109.4h66c17.7 0 32-14.3 32-32v-32c0-35.3-28.7-64-64-64zm-256 0c61.9 0 112-50.1 112-112S381.9 32 320 32 208 82.1 208 144s50.1 112 112 112zm76.8 32h-8.3c-20.8 10-43.9 16-68.5 16s-47.6-6-68.5-16h-8.3C179.6 288 128 339.6 128 403.2V432c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48v-28.8c0-63.6-51.6-115.2-115.2-115.2zm-223.7-13.4C161.5 263.1 145.6 256 128 256H64c-35.3 0-64 28.7-64 64v32c0 17.7 14.3 32 32 32h65.9c6.3-47.4 34.9-87.3 75.2-109.4z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/CCBR" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.7e0ee788.min.js"></script>
+      <script src="../assets/javascripts/bundle.c1ccee15.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.4ac00218.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
