@@ -1,5 +1,5 @@
 # Project Information
-site_name: ccbr1060 analysis)
+site_name: ccbr1060
 site_author: Vishal Koparde, Ph.D.
 # Repository
 repo_name: kopardev/ccbr1060
@@ -27,7 +27,7 @@ extra:
 
 # Page Tree
 nav:
-  - Home: index.md
+  - Outline: index.md
   # - Flowchart: flowchart.md
   # - Tutorial: tutorial.md
   # - References: references.md
