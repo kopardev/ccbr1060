@@ -28,6 +28,7 @@ extra:
 # Page Tree
 nav:
   - Outline: index.md
+  - Detection: shRNA_detection.md
   # - Flowchart: flowchart.md
   # - Tutorial: tutorial.md
   # - References: references.md
