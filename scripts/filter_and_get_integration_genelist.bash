@@ -18,6 +18,8 @@ awk '{print $1}' integration_windows.annotation_lookup.txt | sed "s/:/\t/g" | se
 awk '{print $2}' integration_windows.annotation_lookup.txt >  integration_windows.annotation_lookup.txt.b
 paste  integration_windows.annotation_lookup.txt.a  integration_windows.annotation_lookup.txt.b | awk -v OFS="\t" '{print $1,$2,$3,$1":"$2"-"$3"|"$4,".","."}' > integration_windows.annotated.bed
 rm -f  integration_windows.annotation_lookup.txt.a  integration_windows.annotation_lookup.txt.b
+bedtools intersect -loj -wa -wb -a lab_verified_sites.hg38.bed -b /data/CCBR/projects/ccbr1060/resources/hg38/genes.bed6 | awk -F"\t" '{seen[$1":"$2"-"$3]++;if (seen[$1":"$2"-"$3]==1){print}}' > lab_verified_sites.hg38.bed.annotated.txt
+awk -F"\t" -v OFS="\t" '{print $1,$2,$3,$1":"$2"-"$3"|"$6"|"$10,".",$6}' lab_verified_sites.hg38.bed.annotated.txt > lab_verified_sites.annotated.bed
 bedtools closest -d -a integration_windows.bed -b lab_verified_sites.annotated.bed |awk -F"\t" -v OFS="\t" '{print $1":"$2"-"$3,$7"|"$10}' |awk '{seen[$1]++;if (seen[$1]==1) {print}}' > integration_windows.nearest_lab_verified_site_lookup.txt
 cut -f7 integration_windows.bed.annotated.txt | sort | uniq
 
