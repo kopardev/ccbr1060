@@ -21,7 +21,8 @@ def readtsvline(line):
         shRNA_coordinate=l[6]
         genomic_strand=l[4]
         genomic_coordinate=l[3]
-    return integration_window,gene_strand,genomic_strand,genomic_coordinate,shRNA_strand,shRNA_coordinate
+    readid=l[11]
+    return integration_window,gene_strand,genomic_strand,genomic_coordinate,shRNA_strand,shRNA_coordinate,readid
 
 def get_sums(counts):
     gene_strand=counts['gene_strand']
@@ -34,7 +35,6 @@ def get_sums(counts):
     elif gene_strand=="-":
         same_strand_sum=counts['-+']+counts['--']
         opposite_strand_sum=counts['++']+counts['+-']
-    sumall=same_strand_sum+opposite_strand_sum
     # if same_strand_sum/sumall>0.2:
     if same_strand_sum>=5:
         opposite_strand_transcription=True
@@ -46,10 +46,14 @@ def get_sums(counts):
 
 counts=dict()
 outcoord=open(out_shRNA_coordinates_file,'w')
-outcoord.write("\t".join(["integration_window","shRNA_strand","shRNA_coordinate"])+'\n')
+outcoord.write("\t".join(["integration_window","shRNA_strand","shRNA_coordinate","is_ost_read"])+'\n')
 for line in open(infile).readlines():
-    iw,gene_strand,gs,gc,ss,sc=readtsvline(line)
-    outcoord.write("{0}\t{1}\t{2}\n".format(iw,ss,sc))
+    iw,gene_strand,gs,gc,ss,sc,rid=readtsvline(line)
+    if gene_strand==gs:
+        ost=True
+    else:
+        ost=False
+    outcoord.write("{0}\t{1}\t{2}\t{3}\t{4}\n".format(iw,ss,sc,ost,rid))
     if not iw in counts:
         counts[iw]=dict()
         counts[iw]["++"]=0
