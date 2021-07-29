@@ -1,6 +1,10 @@
 #! /bin/bash
+# inspired from https://github.com/milospjanic/bam2bigwig/blob/master/bam2bigwig.sh
 
-#create bed from bam, requires bedtools bamToBed
+module load bedtools
+module load ucsc
+
+
 bam=$1
 
 bamToBed -i $bam -split > ${bam%.*}.accepted_hits.bed
