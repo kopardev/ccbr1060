@@ -1,5 +1,7 @@
 ## Finding consensus shRNA integration sites across all samples
 
+This entire workflow can be run using the script `filter_and_get_integration_genelist.bash `.  The only argument is the min. reads threshold which is set to 5. 
+
 `/data/CCBR/projects/ccbr1060/Hg38_shRNA_hybrid/bams_withoutChimericJunctions` has the results for running STAR with chimeric junctions reported for each sample as a tab-delimited file.
 
 ```bash
