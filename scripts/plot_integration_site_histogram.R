@@ -1,0 +1,8 @@
+setwd("~/Projects/ccbr1060")
+library(ggplot2)
+d=read.csv("shRNA_coordinate_distribution.txt",header=TRUE,sep="\t")
+head(d)
+ggplot(d,aes(x=coordinate))+geom_histogram(aes(col=strand),bins = 1000)
+ggplot(d,aes(x=coordinate))+geom_histogram(aes(col=integration_window),bins = 1000)
+ggplot(d,aes(x=shRNA_coordinate))+geom_histogram(bins=100,aes(color=shRNA_strand))+facet_wrap(sample~is_OST_read,ncol=2)
+ggplot(d,aes(x=coordinate))+geom_histogram(bins = 500) + xlim(c(0,13000))
