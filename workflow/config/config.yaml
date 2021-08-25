@@ -1,34 +1,18 @@
 ## The working dir... output will be in the results subfolder of the workdir
-workdir: "/data/CCBR/projects/ccbr1060/Hg38_shRNA_hybrid"
+workdir: "WORKDIR"
 ##
 ## tab delimited samples file ... should have the following 3 columns
 ## sampleName   path_to_R1_fastq        path_to_R2_fastq
 ##
-samples: "/data/CCBR/projects/ccbr1060/Hg38_shRNA_hybrid/samples.tsv"
-scriptsdir: "/data/CCBR/projects/ccbr1060/Hg38_shRNA_hybrid/workflow/scripts"
-resourcesdir: "/data/CCBR/projects/ccbr1060/Hg38_shRNA_hybrid/resources"
-tools: "/data/CCBR/projects/ccbr1060/Hg38_shRNA_hybrid/resources/tools.yaml"
-cluster: "/data/CCBR/projects/ccbr1060/Hg38_shRNA_hybrid/resources/cluster.json"
-adapters: "/data/CCBR/projects/ccbr1060/Hg38_shRNA_hybrid/resources/TruSeq_and_nextera_adapters.consolidated.fa"
+samples: "WORKDIR/samples.tsv"
+scriptsdir: "WORKDIR/scripts"
+resourcesdir: "PIPELINE_HOME/resources"
+tools: "WORKDIR/tools.yaml"
+cluster: "WORKDIR/cluster.json"
 ##
 ### Resources
 ##
 ref_gtf: "/data/CCBR/projects/ccbr1060/Hg38_shRNA_hybrid/Hg38_shRNA.gtf"
-#regions: "/data/Ziegelbauer_lab/resources/hg38_rRNA_masked_plus_rRNA_plus_viruses_plus_ERCC/hg38_rRNA_masked_plus_rRNA_plus_viruses_plus_ERCC.fa.regions"
 star_index_dir: "/data/CCBR/projects/ccbr1060/Hg38_shRNA_hybrid/STAR_index_no_GTF_2.7.6a"
-#ref_bwa_index: "/data/Ziegelbauer_lab/resources/hg38_rRNA_masked_plus_rRNA_plus_viruses_plus_ERCC/hg38_rRNA_masked_plus_rRNA_plus_viruses_plus_ERCC"
-#ref_hisat_index: "/data/Ziegelbauer_lab/resources/hg38_rRNA_masked_plus_rRNA_plus_viruses_plus_ERCC/hg38_rRNA_masked_plus_rRNA_plus_viruses_plus_ERCC"
-#ref_bowtie1_index: "/data/Ziegelbauer_lab/resources/hg38_rRNA_masked_plus_rRNA_plus_viruses_plus_ERCC/hg38_rRNA_masked_plus_rRNA_plus_viruses_plus_ERCC"
-##
-## 2 separate filters are applied to junctions reported by STAR 1st pass
-## star1passfilter1regions defines regions from the "regions" file to which filter1 will be applied
-## filter2 will be applied to all other regions
-## filter1: generally, remove duplicates, remove non-canonical, remove unannotated --> applied to host
-## filter2: generally, remove duplicates only --> applied to viruses
-## True or False WITH quotes
-#star1passfilter1regions: "hg38,rRNA,ERCC"
-#star1passfilter1_noncanonical: "True"
-#star1passfilter1_unannotated: "True"
-#star1passfilter2_noncanonical: "False"
-#star1passfilter2_unannotated: "False"
-cutadapt_min_length: 15
+fastqscreen_config: "PIPELINE_HOME/config/fastq_screen_config.txt"
+# other paramters

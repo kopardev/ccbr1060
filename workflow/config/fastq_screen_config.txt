@@ -1,0 +1,6 @@
+DATABASE     Human   /data/CCBR_Pipeliner/db/PipeDB/lib/fastq_screen_db/hg38/hg38
+DATABASE     Mouse  /data/CCBR_Pipeliner/db/PipeDB/lib/fastq_screen_db/mm10/mm10
+DATABASE     Bacteria        /data/CCBR_Pipeliner/db/PipeDB/lib/fastq_screen_db/Bacteria/bacteria
+DATABASE     Fungi        /data/CCBR_Pipeliner/db/PipeDB/lib/fastq_screen_db/Fungi/fungi
+DATABASE     Virus  /data/CCBR_Pipeliner/db/PipeDB/lib/fastq_screen_db/Virus/virus
+DATABASE     Uni_Vec /data/CCBR_Pipeliner/db/PipeDB/lib/fastq_screen_db/UniVec_vectors/UniVec_vectors

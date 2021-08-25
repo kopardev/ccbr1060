@@ -1,0 +1,9 @@
+sampleName	path_to_R1_fastq	path_to_R2_fastq
+test1	/data/CCBR/rawdata/ccbr1060/test1.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/test1.R2.fastq.gz
+test2	/data/CCBR/rawdata/ccbr1060/test2.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/test2.R2.fastq.gz
+test3	/data/CCBR/rawdata/ccbr1060/test3.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/test3.R2.fastq.gz
+test4	/data/CCBR/rawdata/ccbr1060/test4.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/test4.R2.fastq.gz
+test5	/data/CCBR/rawdata/ccbr1060/test5.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/test5.R2.fastq.gz
+test6	/data/CCBR/rawdata/ccbr1060/test6.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/test6.R2.fastq.gz
+test7	/data/CCBR/rawdata/ccbr1060/test7.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/test7.R2.fastq.gz
+test8	/data/CCBR/rawdata/ccbr1060/test8.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/test8.R2.fastq.gz

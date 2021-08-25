@@ -6,8 +6,11 @@ circexplorer:
  version: "circexplorer2/2.3.5"
 cutadapt:
  version: "cutadapt/1.18"
+ minlen: "15"
 fastqc:
  version: "fastqc/0.11.9"
+fastq_screen:
+ version: "fastq_screen/0.14.1"
 hisat:
  version: "hisat/2.2.1.0"
 multiqc:
