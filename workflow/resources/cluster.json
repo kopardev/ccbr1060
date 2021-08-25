@@ -1,0 +1,80 @@
+{
+    "__default__": {
+        "gres": "lscratch:256",
+        "mem": "40g",
+        "partition": "ccr,norm",
+        "threads": "2",
+        "time": "4:00:00",
+        "name"      : "{rule}.{wildcards}",
+        "output"    : "logs/${{SLURM_JOBID}}.%j.{rule}.{wildcards}.out",
+        "error"     : "logs/${{SLURM_JOBID}}.%j.{rule}.{wildcards}.err"
+    },
+    "cutadapt": {
+        "mem": "120g",
+        "threads": "56",
+        "time": "24:00:00"
+    },
+    "fastqc": {
+        "mem": "40g",
+        "threads": "16",
+        "time": "24:00:00"
+    },
+    "ciri": {
+        "mem": "512g",
+        "threads": "56",
+        "time": "24:00:00",
+        "partition": "largemem",
+    },
+    "filter_ciri_bam_for_BSJs": {
+        "mem": "200g",
+        "threads": "4",
+        "time": "24:00:00",
+    },
+    "star1p": {
+        "mem": "200g",
+        "threads": "56",
+        "time": "24:00:00"
+    },
+    "star2p": {
+        "mem": "512g",
+        "threads": "56",
+        "time": "96:00:00",
+        "partition": "largemem",
+    },
+    "estimate_duplication": {
+        "mem": "200g",
+        "threads": "4",
+        "time": "24:00:00"
+    },
+    "create_BSJ_bam": {
+        "mem": "512g",
+        "threads": "4",
+        "time": "24:00:00",
+        "partition": "largemem",
+    },
+    "create_spliced_reads_bam": {
+        "mem": "200g",
+        "threads": "4",
+        "time": "24:00:00"
+    },
+    "create_linear_reads_bam":{
+        "mem": "512g",
+        "threads": "4",
+        "time": "24:00:00",
+        "partition": "largemem"
+    },
+    "clear": {
+        "mem": "120g",
+        "threads": "4",
+        "time": "24:00:00"
+    },
+    "split_splice_reads_BAM_create_BW": {
+        "mem": "120g",
+        "time": "24:00:00"        
+    },
+    "split_linear_reads_BAM_create_BW": {
+        "mem": "120g",
+        "time": "24:00:00"        
+    }
+
+}
