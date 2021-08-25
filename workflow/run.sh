@@ -173,7 +173,7 @@ function dryrun() {
   runcheck
   if [ -f ${WORKDIR}/dryrun.log ]; then
     modtime=$(stat ${WORKDIR}/dryrun.log |grep Modify|awk '{print $2,$3}'|awk -F"." '{print $1}'|sed "s/ //g"|sed "s/-//g"|sed "s/://g")
-    mv ${WORKDIR}/dryrun.log ${WORKDIR}/dryrun.${modtime}.log
+    mv ${WORKDIR}/dryrun.log ${WORKDIR}/logs/dryrun.${modtime}.log
   fi
   run "--dry-run" | tee ${WORKDIR}/dryrun.log
 }
@@ -279,7 +279,7 @@ if [ $BUYINPARTITIONS ];then PARTITIONS="norm,$BUYINPARTITIONS";fi
 
   cat > ${WORKDIR}/submit_script.sbatch << EOF
 #!/bin/bash
-#SBATCH --job-name="CCBRATACseq"
+#SBATCH --job-name="ccbr1060Pipeline"
 #SBATCH --mem=10g
 #SBATCH --partition="$PARTITIONS"
 #SBATCH --time=96:00:00
@@ -300,7 +300,7 @@ snakemake -s $SNAKEFILE \
 --latency-wait 120 \
 --configfile ${WORKDIR}/config.yaml \
 --cluster-config ${PIPELINE_HOME}/resources/cluster.json \
---cluster "sbatch --gres {cluster.gres} --cpus-per-task {cluster.threads} -p {cluster.partition} -t {cluster.time} --mem {cluster.mem} --job-name {cluster.name} --output {cluster.output} --error {cluster.error}  --qos {cluster.qos}" \
+--cluster "sbatch --gres {cluster.gres} --cpus-per-task {cluster.threads} -p {cluster.partition} -t {cluster.time} --mem {cluster.mem} --job-name {cluster.name} --output {cluster.output} --error {cluster.error}" \
 -j 500 \
 --rerun-incomplete \
 --keep-going \
