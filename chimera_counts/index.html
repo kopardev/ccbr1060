@@ -16,7 +16,7 @@
     
     
       
-        <title>Detection - ccbr1060</title>
+        <title>Chimera counts - ccbr1060</title>
       
     
     
@@ -63,7 +63,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#finding-consensus-shrna-integration-sites-across-all-samples" class="md-skip">
+        <a href="#quantifying-chimeric-reads-in-shrna-integration-windows" class="md-skip">
           Skip to content
         </a>
       
@@ -93,7 +93,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Detection
+              Chimera counts
             
           </span>
         </div>
@@ -216,47 +216,11 @@
 
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Detection
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../shRNA_detection/" class="md-nav__link">
         Detection
       </a>
-      
-        
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#finding-consensus-shrna-integration-sites-across-all-samples" class="md-nav__link">
-    Finding consensus shRNA integration sites across all samples
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -285,8 +249,8 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#finding-consensus-shrna-integration-sites-across-all-samples" class="md-nav__link">
-    Finding consensus shRNA integration sites across all samples
+  <a href="#quantifying-chimeric-reads-in-shrna-integration-windows" class="md-nav__link">
+    Quantifying chimeric reads in shRNA integration windows
   </a>
   
 </li>
@@ -303,208 +267,104 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/kopardev/ccbr1060/edit/master/docs/shRNA_detection.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/kopardev/ccbr1060/edit/master/docs/chimera_counts.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                  <h1>Detection</h1>
+                  <h1>Chimera counts</h1>
                 
-                <h2 id="finding-consensus-shrna-integration-sites-across-all-samples">Finding consensus shRNA integration sites across all samples</h2>
-<p>This entire workflow can be run using the script <code>filter_and_get_integration_genelist.bash</code>.  The only argument is the min. reads threshold which is set to 5. </p>
-<p><code>/data/CCBR/projects/ccbr1060/Hg38_shRNA_hybrid/bams_withoutChimericJunctions</code> has the results for running STAR with chimeric junctions reported for each sample as a tab-delimited file.</p>
-<pre><code class="language-bash">(base) kopardevn@biowulf 11:00 PM /data/CCBR/projects/ccbr1060/Hg38_shRNA_hybrid/bams_withoutChimericJunctions
- HEADNODE! % find . -name &quot;*_p1.Chimeric.out.junction&quot;
-./test5/test5_p1.Chimeric.out.junction
-./test4/test4_p1.Chimeric.out.junction
-./test2/test2_p1.Chimeric.out.junction
-./test3/test3_p1.Chimeric.out.junction
-./test1/test1_p1.Chimeric.out.junction
-./test8/test8_p1.Chimeric.out.junction
-./test6/test6_p1.Chimeric.out.junction
-./test7/test7_p1.Chimeric.out.junction
+                <h2 id="quantifying-chimeric-reads-in-shrna-integration-windows">Quantifying chimeric reads in shRNA integration windows</h2>
+<p>Reads reported in <code>_p1.Chimeric.out.junction</code> are filtered for those involving alignment to <code>shRNA</code> and then are further filtered to those falling within the called <em>integration windows</em>.</p>
+<pre><code class="language-bash"> % head test1_p1.Chimeric.out.junction.shRNA.filtered_to_integration_windows.tsv
+chr6|33272627|-|NB501223:102:HMC2KBGXF:1:12106:10408:19739  chr6    33272627    -   chr_shRNA   4554    -   2   0   1   NB501223:102:HMC2KBGXF:1:12106:10408:19739  33272628    52S98M3301p40M109N92M123N19M    4502    52M98S  1   301 250 297 297 0
+chr7|44881390|-|NB501223:102:HMC2KBGXF:1:12108:17982:4123   chr7    44881390    -   chr_shRNA   4554    -   2   2   1   NB501223:102:HMC2KBGXF:1:12108:17982:4123   44881391    49S31M6p119M    4505    49M31S  1   199 149 196 196 0
+chr14|20343258|+|NB501223:102:HMC2KBGXF:2:12104:1833:19161  chr_shRNA   7341    -   chr14   20343258    +   0   0   0   NB501223:102:HMC2KBGXF:2:12104:1833:19161   7342    84S66M116p150M1S    20343259    66S84M  1   301 214 293 293 0
+chr5|73643317|+|NB501223:102:HMC2KBGXF:2:12105:12463:13434  chr5    73643317    +   chr_shRNA   636 -   0   0   1   NB501223:102:HMC2KBGXF:2:12105:12463:13434  73643273    44M107S 488 148M-107p107M44S    1   301 258 295 295 0
+chr6|33272627|-|NB501223:102:HMC2KBGXF:2:22104:1615:5946    chr6    33272627    -   chr_shRNA   4554    -   2   0   1   NB501223:102:HMC2KBGXF:2:22104:1615:5946    33272628    51S98M-68p69M3070N82M   4503    51M98S  1   300 252 298 298 0
+chr7|44881390|-|NB501223:102:HMC2KBGXF:2:22105:25297:9464   chr7    44881390    -   chr_shRNA   4554    -   2   2   1   NB501223:102:HMC2KBGXF:2:22105:25297:9464   44881391    50S31M6p117M    4504    50M31S  1   198 147 195 195 0
+chr6|33272627|-|NB501223:102:HMC2KBGXF:3:21605:4862:8320    chr6    33272627    -   chr_shRNA   4554    -   2   0   1   NB501223:102:HMC2KBGXF:3:21605:4862:8320    33272628    38S99M3070N13M7p67M81N83M   4516    38M112S 1   300 267 300 300 0
+chr7|44881427|-|NB501223:102:HMC2KBGXF:4:11501:11670:18517  chr7    44881427    -   chr_shRNA   8003    -   -1  0   0   NB501223:102:HMC2KBGXF:4:11501:11670:18517  44881428    118M    7854    149M    1   267 147 263 263 0
+chr7|44881390|-|NB501223:102:HMC2KBGXF:4:21410:21394:8282   chr7    44881390    -   chr_shRNA   4554    -   2   2   1   NB501223:102:HMC2KBGXF:4:21410:21394:8282   44881391    31S31M6p117M    4523    31M31S  2   179 147 176 176 0
+chr1|71076794|+|NB501223:102:HMC2KBGXF:1:12110:4807:16670   chr_shRNA   7991    +   chr1    71076794    +   2   2   2   NB501223:102:HMC2KBGXF:1:12110:4807:16670   7758    151M47p35M116S  71076795    35S83M1579N33M  1   302 186 299 299 0
 </code></pre>
-<p>Now I filter each of these files to only look at chimeric junctions involving shRNA, i.e., either the donor or the accepter of the junction must be shRNA the report the results in <code>filtered.chimeric.junctions</code>. These junctions have also been filtered to show only those which have greater than 5 reads of support.</p>
-<pre><code class="language-bash"> % sort -k1,1nr filtered.chimeric.junctions|head
-2089    chr5    73642754    test7
-2087    chr5    73642754    test5
-2018    chr5    73642754    test6
-1908    chr5    73642754    test8
-585 chr5    73643317    test5
-506 chr5    73643317    test8
-484 chr5    73643317    test7
-475 chr5    73643317    test6
-449 chr7    44881390    test5
-398 chr7    44881390    test6
- % sort -k1,1nr filtered.chimeric.junctions|tail
-6   chr9    9442130 test6
-6   chr9    9442137 test7
-6   chr9    9442158 test8
-6   chr9    9442170 test7
-6   chr9    9442234 test6
-6   chr9    9442235 test6
-6   chr9    9442241 test7
-6   chr9    9442241 test8
-6   chr9    9442242 test5
-6   chrM    2046    test7
+<p>These are further annotated with the <em>integration window</em></p>
+<pre><code class="language-bash"> % head *windows.annotated.tsv
+chr6|33272627|-|NB501223:102:HMC2KBGXF:1:12106:10408:19739  chr6:33272527-33272726|ENSG00000231500.7|RPS18|+    chr6    33272627    -   chr_shRNA   4554    -   2   0   1   NB501223:102:HMC2KBGXF:1:12106:10408:19739  33272628    52S98M3301p40M109N92M123N19M    4502    52M98S  1   301 250 297 297 0
+chr7|44881390|-|NB501223:102:HMC2KBGXF:1:12108:17982:4123   chr7:44881290-44881489|ENSG00000146676.10|PURB|-    chr7    44881390    -   chr_shRNA   4554    -   2   2   1   NB501223:102:HMC2KBGXF:1:12108:17982:4123   44881391    49S31M6p119M    4505    49M31S  1   199 149 196 196 0
+chr14|20343258|+|NB501223:102:HMC2KBGXF:2:12104:1833:19161  chr14:20343158-20343486|ENSG00000259001.3|RPPH1|-   chr_shRNA   7341    -   chr14   20343258    +   0   0   0   NB501223:102:HMC2KBGXF:2:12104:1833:19161   7342    84S66M116p150M1S    20343259    66S84M  1   301 214 293 293 0
+chr5|73643317|+|NB501223:102:HMC2KBGXF:2:12105:12463:13434  chr5:73643062-73643416|ENSG00000214944.10|ARHGEF28|+    chr5    73643317    +   chr_shRNA   636 -   0   0   1   NB501223:102:HMC2KBGXF:2:12105:12463:13434  73643273    44M107S 488 148M-107p107M44S    1   301 258 295 295 0
+chr6|33272627|-|NB501223:102:HMC2KBGXF:2:22104:1615:5946    chr6:33272527-33272726|ENSG00000231500.7|RPS18|+    chr6    33272627    -   chr_shRNA   4554    -   2   0   1   NB501223:102:HMC2KBGXF:2:22104:1615:5946    33272628    51S98M-68p69M3070N82M   4503    51M98S  1   300 252 298 298 0
+chr7|44881390|-|NB501223:102:HMC2KBGXF:2:22105:25297:9464   chr7:44881290-44881489|ENSG00000146676.10|PURB|-    chr7    44881390    -   chr_shRNA   4554    -   2   2   1   NB501223:102:HMC2KBGXF:2:22105:25297:9464   44881391    50S31M6p117M    4504    50M31S  1   198 147 195 195 0
+chr6|33272627|-|NB501223:102:HMC2KBGXF:3:21605:4862:8320    chr6:33272527-33272726|ENSG00000231500.7|RPS18|+    chr6    33272627    -   chr_shRNA   4554    -   2   0   1   NB501223:102:HMC2KBGXF:3:21605:4862:8320    33272628    38S99M3070N13M7p67M81N83M   4516    38M112S 1   300 267 300 300 0
+chr7|44881427|-|NB501223:102:HMC2KBGXF:4:11501:11670:18517  chr7:44881290-44881489|ENSG00000146676.10|PURB|-    chr7    44881427    -   chr_shRNA   8003    -   -1  0   0   NB501223:102:HMC2KBGXF:4:11501:11670:18517  44881428    118M    7854    149M    1   267 147 263 263 0
+chr7|44881390|-|NB501223:102:HMC2KBGXF:4:21410:21394:8282   chr7:44881290-44881489|ENSG00000146676.10|PURB|-    chr7    44881390    -   chr_shRNA   4554    -   2   2   1   NB501223:102:HMC2KBGXF:4:21410:21394:8282   44881391    31S31M6p117M    4523    31M31S  2   179 147 176 176 0
+chr1|71076794|+|NB501223:102:HMC2KBGXF:1:12110:4807:16670   chr1:71076694-71076893|ENSG00000132485.14|ZRANB2|-  chr_shRNA   7991    +   chr1    71076794    +   2   2   2   NB501223:102:HMC2KBGXF:1:12110:4807:16670   7758    151M47p35M116S  71076795    35S83M1579N33M  1   302 186 299 299 0
 </code></pre>
-<p>The columns here are:</p>
-<ol>
-<li>Number of read supporting the junction per sample</li>
-<li>Host chromosome</li>
-<li>Host coordinate</li>
-<li>Sample name</li>
-</ol>
-<p>Next, we aggregate junctions accross multiple samples in <code>filtered.chimeric.junctions.aggregate_across_samples</code>. If a host chromosome + host coordinate combination is seen in multiple samples, then the counts are summed up and a single row is reported.</p>
-<pre><code class="language-bash"> % sort -k3,3nr filtered.chimeric.junctions.aggregate_across_samples|head
-chr5    73642754    8191
-chr5    73643317    2152
-chr7    44881390    1870
-chr6    33272627    1335
-chr1    189437490   752
-chr7    44881427    670
-chr12   124914855   631
-chr13   95133445    613
-chr2    11332341    551
-chr5    113546953   492
- % sort -k3,3nr filtered.chimeric.junctions.aggregate_across_samples|tail
-chr6    52995836    6
-chr6    52995864    6
-chr6    52995871    6
-chr6    52995891    6
-chr9    73160812    6
-chr9    9442121 6
-chr9    9442130 6
-chr9    9442158 6
-chr9    9442170 6
-chrM    2046    6
+<p>Here the second column denotes the <em>integration window</em>, which also includes the gene at the <em>integration window</em> along with its strand.</p>
+<p><code>get_detailed_chimera_counts.py</code>python script is used to get per-<em>integration window</em> counts for all possible alignment combinations:</p>
+<table>
+<thead>
+<tr>
+<th align="center">host chromosome alignment strand</th>
+<th align="center">shRNA alignment strand</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">+</td>
+<td align="center">+</td>
+</tr>
+<tr>
+<td align="center">+</td>
+<td align="center">-</td>
+</tr>
+<tr>
+<td align="center">-</td>
+<td align="center">+</td>
+</tr>
+<tr>
+<td align="center">-</td>
+<td align="center">-</td>
+</tr>
+</tbody>
+</table>
+<p>If there are 5 or more reads aligning to the host chromosome on the same strand as the gene annotation of the <em>integration window</em>, then this is considered as evidence for opposite strand transcription (OST). This is also reported in the counts table as follows:</p>
+<pre><code class="language-bash"> % head test5/test5_shRNA_integration_window_counts.tsv
+integration_window  gene_strand counts_++   counts_+-   counts_-+   counts_--   same_strand_counts  opposite_strand_counts  total_counts    opposite_strand_transcription
+chr5:73643062-73643416|ENSG00000214944.10|ARHGEF28|+    +   0   678 1   0   678 1   679 True
+chr5:113546853-113547052|ENSG00000047188.16|YTHDC2|+    +   0   130 0   0   130 0   130 True
+chr5:73642533-73642853|ENSG00000214944.10|ARHGEF28|+    +   0   2455    0   0   2455    0   2455    True
+chr6:52995534-52996006|ENSG00000202198.1|7SK|+  +   0   1   5   1146    1   1151    1152    False
+chr14:20343158-20343486|ENSG00000259001.3|RPPH1|-   -   1   37  0   0   0   38  38  False
+chrM:1946-2145|ENSG00000210082.2|MT-RNR2|+  +   0   1   0   36  1   36  37  False
+chr13:95149166-95149365|ENSG00000125257.16|ABCC4|-  -   0   0   0   11  11  0   11  True
+chr14:49862461-49862918|ENSG00000282885.2|RP11-596C23.6|-   -   2   657 0   0   0   659 659 False
+chr14:49586487-49586838|ENSG00000276168.1|RN7SL1|+  +   0   0   1   530 0   531 531 False
 </code></pre>
-<p>The columns here are:</p>
-<ol>
-<li>Host chromosome</li>
-<li>Host coordinate</li>
-<li>Total number of reads supporting this junctions, all samples combined</li>
-</ol>
-<p><code>create_integration_windows.py</code> python script then takes the above file and determines plausible shRNA integration windows.</p>
+<p>Using <code>create_counts_matrix.v2.py</code> the total counts for each <em>integration window</em> can be aggregrated across sample to create a count matrix</p>
+<pre><code class="language-bash"> % head integration_windows.counts_matrix.v2.tsv                                   
+integration_window  gene    nearest_verified_site   test1   test2   test3   test4   test5   test6   test7   test8
+chr1:632158-632357  ENSG00000237973.1|MTCO1P12|+    chr1:71076570-71076570|+|ENSG00000132485.14|ZRANB2|70444213 0.0 0.0 0.0 0.0 4   7   1   4.0
+chr1:28507280-28507479  ENSG00000274266.1|SNORA73A|+    chr1:71076570-71076570|+|ENSG00000132485.14|ZRANB2|42569091 0.0 0.0 0.0 1.0 9   13  12  14.0
+chr1:71072449-71072648  ENSG00000132485.14|ZRANB2|- chr1:71076570-71076570|+|ENSG00000132485.14|ZRANB2|3922 0.0 0.0 0.0 2.0 7   9   8   2.0
+chr1:71076470-71076669  ENSG00000132485.14|ZRANB2|- chr1:71076570-71076570|+|ENSG00000132485.14|ZRANB2|0    3.0 3.0 1.0 1.0 18  10  14  15.0
+chr1:71076694-71076893  ENSG00000132485.14|ZRANB2|- chr1:71076570-71076570|+|ENSG00000132485.14|ZRANB2|124  6.0 2.0 5.0 5.0 1   4   3   0.0
+chr1:189437275-189437589    .|. chr1:189437807-189437807|-|.|218    1.0 0.0 0.0 0.0 298 346 312 374.0
+chr1:212615110-212615309    ENSG00000162772.17|ATF3|+   chr1:189437807-189437807|-|.|23177303   0.0 0.0 0.0 0.0 15  4   6   2.0
+chr1:212620006-212620205    ENSG00000162772.17|ATF3|+   chr1:189437807-189437807|-|.|23182199   0.0 0.0 0.0 0.0 10  5   15  9.0
+chr11:65504957-65505156 ENSG00000251562.8|MALAT1|+  .|-1    1.0 0.0 0.0 0.0 20  11  11  7.0
+</code></pre>
+<p>These counts can then be normalized by library size (i.e. number of reads aligning to the hybrid genome) and then a simple 1-tail paired t-test can be used to get significance (p-value) at each integration site. </p>
+<p>Findings:</p>
 <ul>
-<li>Integration host sites within 100bp of each other are grouped together as a <em>site-list</em></li>
-<li>The coordinate of the <em>site</em> with the highest read support within a <em>site-list</em> is used to represent the coordinate of the entire <em>site-list</em></li>
-<li>100bp buffer is applied to either side of this representative coordinate to create the <code>integration_windows.bed</code> </li>
+<li>
+<p>There are 9 sites with <code>nearest_verified_site</code> having a suffix of <code>|0</code> denoting an overlap with a lab-verified integration site. 7 of these are bioionformatically predicted with <strong>High</strong> confidence, 1 with <strong>Medium</strong> confidence and 1 with <strong>Low</strong> confidence. </p>
+</li>
+<li>
+<p>20 Sites out of 54 <em>integration windows</em> have evidence of OST at least in 3 samples. 8 out of the 9 sites from above have evidence of OST.</p>
+</li>
 </ul>
-<p>Overlapping windows are simply merged together with bedtools.</p>
-<p>This leads to a total of 54 putative shRNA integration sites:</p>
-<pre><code class="language-bash"> % wc -l integration_windows.bed
-54 integration_windows.bed
-</code></pre>
-<p>These are then annotated with <code>genes.bed6</code> for hg38 (alignment is done against hg38 by PJ)</p>
-<pre><code class="language-bash"> % head integration_windows.bed.annotated.txt
-chr1    632158  632357  chr1    631074  632616  ENSG00000237973.1|MTCO1P12  .   +
-chr1    28507280    28507479    chr1    28507366    28507571    ENSG00000274266.1|SNORA73A  .   +
-chr1    71072449    71072648    chr1    71063291    71081289    ENSG00000132485.14|ZRANB2   .   -
-chr1    71076470    71076669    chr1    71063291    71081289    ENSG00000132485.14|ZRANB2   .   -
-chr1    71076694    71076893    chr1    71063291    71081289    ENSG00000132485.14|ZRANB2   .   -
-chr1    189437275   189437589   .   -1  -1  .   -1  .
-chr1    212615110   212615309   chr1    212565334   212620777   ENSG00000162772.17|ATF3 .   +
-chr1    212620006   212620205   chr1    212565334   212620777   ENSG00000162772.17|ATF3 .   +
-chr11   65504957    65505156    chr11   65497688    65506516    ENSG00000251562.8|MALAT1    .   +
-chr12   57517324    57517523    chr12   57516588    57521737    ENSG00000175197.13|DDIT3    .   -
-</code></pre>
-<p>3 of these are in intergenic regions... others are withing gene boundaries.</p>
-<pre><code class="language-bash"> % awk -F&quot;\t&quot; '{if ($7==&quot;.&quot;){print}}' integration_windows.bed.annotated.txt
-chr1    189437275   189437589   .   -1  -1  .   -1  .
-chr21   8258274 8258649 .   -1  -1  .   -1  .
-chr5    113512841   113513040   .   -1  -1  .   -1  .
-</code></pre>
-<p>The genic 51 integration sites fall in 35 genes</p>
-<pre><code class="language-bash"> % cut -f7 integration_windows.bed.annotated.txt | sort | uniq |grep ENS
-ENSG00000047188.16|YTHDC2
-ENSG00000067141.17|NEO1
-ENSG00000106511.6|MEOX2
-ENSG00000124209.4|RAB22A
-ENSG00000125257.16|ABCC4
-ENSG00000132485.14|ZRANB2
-ENSG00000134318.14|ROCK2
-ENSG00000135046.14|ANXA1
-ENSG00000135220.11|UGT2A3
-ENSG00000137154.13|RPS6
-ENSG00000141279.17|NPEPPS
-ENSG00000146676.10|PURB
-ENSG00000150991.15|UBC
-ENSG00000158019.21|BABAM2
-ENSG00000162772.17|ATF3
-ENSG00000175197.13|DDIT3
-ENSG00000200488.1|RN7SKP203
-ENSG00000202198.1|7SK
-ENSG00000210082.2|MT-RNR2
-ENSG00000214944.10|ARHGEF28
-ENSG00000223501.9|VPS52
-ENSG00000230897.1|RPS18P12
-ENSG00000231500.7|RPS18
-ENSG00000237973.1|MTCO1P12
-ENSG00000240877.3|RN7SL521P
-ENSG00000251562.8|MALAT1
-ENSG00000259001.3|RPPH1
-ENSG00000261499.2|CH17-260O16.1
-ENSG00000263740.2|RN7SL4P
-ENSG00000265735.2|RN7SL5P
-ENSG00000274266.1|SNORA73A
-ENSG00000276168.1|RN7SL1
-ENSG00000278771.1|RN7SL3
-ENSG00000280441.3|CH507-528H12.1
-ENSG00000282885.2|RP11-596C23.6
-</code></pre>
-<p>There are 15 lab-verified integration sites.</p>
-<pre><code class="language-bash"> % more lab_verified_sites.bed
-chr1    71542253    71542253    .   .   +
-chr1    189406937   189406937   .   .   -
-chr12   132507964   132507964   .   .   -
-chr13   95784002    95784002    .   .   +
-chr14   84280651    84280651    .   .   +
-chr15   73354871    73354871    .   .   -
-chr17   36364840    36364840    .   .   +
-chr2    11472501    11472501    .   .   +
-chr2    28211890    28211890    .   .   -
-chr4    69801325    69801325    .   .   -
-chr5    72939142    72939142    .   .   -
-chr5    112903625   112903625   .   .   -
-chr6    33223194    33223194    .   .   +
-chr7    15721280    15721280    .   .   -
-chr7    44920734    44920734    .   .   +
- % more lab_verified_sites.annotated.bed
-chr1    71076570    71076570    chr1:71076570-71076570|+|ENSG00000132485.14|ZRANB2  .   +
-chr1    189437807   189437807   chr1:189437807-189437807|-|.    .   -
-chr12   132023419   132023419   chr12:132023419-132023419|-|ENSG00000183495.14|EP400    .   -
-chr13   95131748    95131748    chr13:95131748-95131748|+|ENSG00000125257.16|ABCC4  .   +
-chr14   83814307    83814307    chr14:83814307-83814307|+|. .   +
-chr15   73062530    73062530    chr15:73062530-73062530|-|ENSG00000067141.17|NEO1   .   -
-chr17   38208780    38208780    chr17:38208780-38208780|+|ENSG00000274487.2|NPEPPSP1    .   +
-chr2    11332375    11332375    chr2:11332375-11332375|+|ENSG00000134318.14|ROCK2   .   +
-chr2    27989023    27989023    chr2:27989023-27989023|-|ENSG00000158019.21|BABAM2  .   -
-chr4    68935607    68935607    chr4:68935607-68935607|-|ENSG00000135220.11|UGT2A3  .   -
-chr5    73643317    73643317    chr5:73643317-73643317|-|ENSG00000214944.10|ARHGEF28    .   -
-chr5    113567928   113567928   chr5:113567928-113567928|-|ENSG00000047188.16|YTHDC2    .   -
-chr6    33255417    33255417    chr6:33255417-33255417|+|ENSG00000223501.9|VPS52    .   +
-chr7    15681655    15681655    chr7:15681655-15681655|-|ENSG00000106511.6|MEOX2    .   -
-chr7    44881135    44881135    chr7:44881135-44881135|+|ENSG00000146676.10|PURB    .   +
-</code></pre>
-<p>12 of the 54 bioinformatically found integration sites are in intergenic regions</p>
-<pre><code class="language-bash"> % grep -c &quot;\.|-1&quot; integration_windows.nearest_lab_verified_site_lookup.txt
-12
-</code></pre>
-<p>9 of the 15 lab-verified annotations sites are within the integration boundaries found bioinformatically</p>
-<pre><code class="language-bash"> % grep -c &quot;|0&quot; integration_windows.nearest_lab_verified_site_lookup.txt
-9
- % grep &quot;|0&quot; integration_windows.nearest_lab_verified_site_lookup.txt
-chr1:71076470-71076669  chr1:71076570-71076570|+|ENSG00000132485.14|ZRANB2|0
-chr13:95131648-95131847 chr13:95131748-95131748|+|ENSG00000125257.16|ABCC4|0
-chr15:73062431-73062630 chr15:73062530-73062530|-|ENSG00000067141.17|NEO1|0
-chr2:11332241-11332440  chr2:11332375-11332375|+|ENSG00000134318.14|ROCK2|0
-chr5:73643062-73643416  chr5:73643317-73643317|-|ENSG00000214944.10|ARHGEF28|0
-chr5:113567827-113568026    chr5:113567928-113567928|-|ENSG00000047188.16|YTHDC2|0
-chr6:33255317-33255516  chr6:33255417-33255417|+|ENSG00000223501.9|VPS52|0
-chr7:15681556-15681755  chr7:15681655-15681655|-|ENSG00000106511.6|MEOX2|0
-chr7:44881036-44881235  chr7:44881135-44881135|+|ENSG00000146676.10|PURB|0
-</code></pre>
                 
               
               
@@ -520,26 +380,6 @@ chr7:44881036-44881235  chr7:44881135-44881135|+|ENSG00000146676.10|PURB|0
       
         
 <footer class="md-footer">
-  
-    <nav class="md-footer__inner md-grid" aria-label="Footer">
-      
-        
-        <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Previous: Outline" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              Outline
-            </div>
-          </div>
-        </a>
-      
-      
-    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
