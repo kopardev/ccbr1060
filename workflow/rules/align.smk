@@ -103,7 +103,7 @@ rule bam2bw:
     shell:"""
 set -e -x -o pipefail
 if [ -w "/lscratch/${{SLURM_JOB_ID}}" ];then TMPDIR="/lscratch/${{SLURM_JOB_ID}}";else TMPDIR="/dev/shm";fi
-bn=$(dirname {output.bw})
+bn=$(dirname {output.fbw})
 cd $bn
 bash {params.script} --sample {params.sample} --bam {input.bam}
 """
