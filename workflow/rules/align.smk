@@ -16,7 +16,7 @@ rule star1p:
         starindexdir=STARINDEXDIR,
         alignTranscriptsPerReadNmax=TOOLS["star"]["alignTranscriptsPerReadNmax"],
         gtf=GTF
-    envmodules: TOOLS["star"]["version"]
+    envmodules: TOOLS["star"]["version"], TOOLS["samtools"]["version"]
     threads: getthreads("star1p")
     shell:"""
 tmpdir="/dev/shm/{params.sample}"
