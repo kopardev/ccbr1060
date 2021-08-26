@@ -95,9 +95,8 @@ rule bam2bw:
     input:
         bam=rules.star1p.output.bam,
     output:
-        bw=join(RESULTSDIR,"{sample}","STAR1p","withChimericJunctions","{sample}.bw"),
-        rbw=join(RESULTSDIR,"{sample}","STAR1p","withChimericJunctions","{sample}.fwd.bw"),
-        fbw=join(RESULTSDIR,"{sample}","STAR1p","withChimericJunctions","{sample}.rev.bw"),
+        fbw=join(RESULTSDIR,"{sample}","STAR1p","withChimericJunctions","{sample}.fwd.bw"),
+        rbw=join(RESULTSDIR,"{sample}","STAR1p","withChimericJunctions","{sample}.rev.bw"),
     params:
         script=join(SCRIPTSDIR,"bam_to_strand_specific_bigwigs.bash"),
         sample="{sample}"

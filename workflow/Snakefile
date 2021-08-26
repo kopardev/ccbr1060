@@ -19,16 +19,15 @@ rule all:
         expand(join(QCDIR,"fastqc","{sample}.R1.trim_fastqc.zip"), sample=SAMPLES),
         expand(join(QCDIR,"fastqc","{sample}.R2.trim_fastqc.zip"), sample=SAMPLES),
         ## fastq_screen
-        expand(join(QCDIR,"FQscreen","{sample}.R1.noBL_screen.txt"), sample=SAMPLES),
-        expand(join(QCDIR,"FQscreen","{sample}.R1.noBL_screen.png"), sample=SAMPLES),
-        expand(join(QCDIR,"FQscreen","{sample}.R2.noBL_screen.txt"), sample=SAMPLES),
-        expand(join(QCDIR,"FQscreen","{sample}.R2.noBL_screen.png"), sample=SAMPLES),
+        expand(join(QCDIR,"FQscreen","{sample}.R1.trim_screen.txt"), sample=SAMPLES),
+        expand(join(QCDIR,"FQscreen","{sample}.R1.trim_screen.png"), sample=SAMPLES),
+        expand(join(QCDIR,"FQscreen","{sample}.R2.trim_screen.txt"), sample=SAMPLES),
+        expand(join(QCDIR,"FQscreen","{sample}.R2.trim_screen.png"), sample=SAMPLES),
         ## star1p
         expand(join(RESULTSDIR,"{sample}","STAR1p","withoutChimericJunctions","{sample}_p1.Chimeric.out.junction"),sample=SAMPLES),
         expand(join(RESULTSDIR,"{sample}","STAR1p","withChimericJunctions","{sample}_p1.Aligned.sortedByCoord.out.bam"),sample=SAMPLES),
         expand(join(RESULTSDIR,"{sample}","STAR1p","withChimericJunctions","{sample}_p1.Aligned.sortedByCoord.out.bam.bai"),sample=SAMPLES),
-        ## whole bigwigs
-        expand(join(RESULTSDIR,"{sample}","STAR1p","withChimericJunctions","{sample}.bw"),sample=SAMPLES),
+        ## f and r bigwigs
         expand(join(RESULTSDIR,"{sample}","STAR1p","withChimericJunctions","{sample}.fwd.bw"),sample=SAMPLES),
         expand(join(RESULTSDIR,"{sample}","STAR1p","withChimericJunctions","{sample}.rev.bw"),sample=SAMPLES),
         ## multiqc
