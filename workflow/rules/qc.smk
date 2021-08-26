@@ -39,15 +39,15 @@ rule fastq_screen:
         R1=rules.cutadapt.output.of1,
         R2=rules.cutadapt.output.of2,
     output:
-        out1=join(QCDIR,"FQscreen","{sample}.R1.noBL_screen.txt"),
-        out2=join(QCDIR,"FQscreen","{sample}.R1.noBL_screen.png"),
-        out3=join(QCDIR,"FQscreen","{sample}.R2.noBL_screen.txt"),
-        out4=join(QCDIR,"FQscreen","{sample}.R2.noBL_screen.png"),
+        out1=join(QCDIR,"FQscreen","{sample}.R1.trim_screen.txt"),
+        out2=join(QCDIR,"FQscreen","{sample}.R1.trim_screen.png"),
+        out3=join(QCDIR,"FQscreen","{sample}.R2.trim_screen.txt"),
+        out4=join(QCDIR,"FQscreen","{sample}.R2.trim_screen.png"),
     params:
         outdir = join(QCDIR,"FQscreen"),
         fastq_screen_config=FASTQ_SCREEN_CONFIG,
     threads: getthreads("fastq_screen")  
-    envmodules: TOOLS["fastq_screen"]["version"]
+    envmodules: TOOLS["bowtie2"]["version"],TOOLS["fastq_screen"]["version"]
     shell: """
 set -e -x -o pipefail
 if [ -w "/lscratch/${{SLURM_JOB_ID}}" ];then TMPDIR="/lscratch/${{SLURM_JOB_ID}}";else TMPDIR="/dev/shm";fi

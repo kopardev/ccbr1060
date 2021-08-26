@@ -1,5 +1,7 @@
 bedtools:
  version: "bedtools/2.29.2"
+bowtie2:
+ version: "bowtie/2-2.4.4"
 bwa:
  version: "bwa/0.7.17"
 circexplorer:
