@@ -71,6 +71,8 @@ WORKDIR=config['workdir']
 CONFIGFILE=join(WORKDIR,"config.yaml")
 check_readaccess(CONFIGFILE)
 configfile: CONFIGFILE
+with open(CONFIGFILE) as f:
+    CONFIG = yaml.safe_load(f)
 
 SCRIPTSDIR=config['scriptsdir']
 RESOURCESDIR=config['resourcesdir']
@@ -86,6 +88,11 @@ SAMPLES = list(SAMPLESDF.index)
 SAMPLESDF["R1"]=join(RESOURCESDIR,"dummy")
 SAMPLESDF["R2"]=join(RESOURCESDIR,"dummy")
 SAMPLESDF["PEorSE"]="PE"
+
+GROUPS=list(set(list(SAMPLESDF["group"])))
+GROUP2SAMPLES=dict()
+for g in GROUPS:
+    GROUP2SAMPLES[g]=list(SAMPLESDF[SAMPLESDF.group==g].index)
 
 for sample in SAMPLES:
     R1file=SAMPLESDF["path_to_R1_fastq"][sample]
