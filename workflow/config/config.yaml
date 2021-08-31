@@ -16,3 +16,13 @@ ref_gtf: "/data/CCBR/projects/ccbr1060/Hg38_shRNA_hybrid/Hg38_shRNA.gtf"
 star_index_dir: "/data/CCBR/projects/ccbr1060/Hg38_shRNA_hybrid/STAR_index_no_GTF_2.7.6a"
 fastqscreen_config: "PIPELINE_HOME/config/fastq_screen_config.txt"
 # other paramters
+shRNA_detection:
+  nreads_threshold: "5"
+  integration_window_flanking_width: "100"
+  genes_bed6: "/data/CCBR/projects/ccbr1060/resources/hg38/genes.bed6"
+lab_verified_sites:
+  596-1: "/data/CCBR/projects/ccbr1060/resources/lab_verified_sites/lab_verified_sites.596-1.hg38.bed"
+  596-6: "/data/CCBR/projects/ccbr1060/resources/lab_verified_sites/lab_verified_sites.596-6.hg38.bed"
+  596-7: "/data/CCBR/projects/ccbr1060/resources/lab_verified_sites/lab_verified_sites.596-7.hg38.bed"
+  596-11: "/data/CCBR/projects/ccbr1060/resources/lab_verified_sites/lab_verified_sites.596-11.hg38.bed"
+
