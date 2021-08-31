@@ -4,6 +4,7 @@ include: join("rules/init.smk")
 include: join("rules/trim.smk")
 include: join("rules/align.smk")
 include: join("rules/qc.smk")
+include: join("rules/shRNA_integration.smk")
 
 localrules: all
 
@@ -32,3 +33,11 @@ rule all:
         expand(join(RESULTSDIR,"{sample}","STAR1p","withChimericJunctions","{sample}.rev.bw"),sample=SAMPLES),
         ## multiqc
         join(RESULTSDIR,"QC","multiqc_report.html"),
+        ## filtered chimeric junctions
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","filtered_chimeric_junctions.tsv"),group=GROUPS),
+        ## integration windows
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","integration_windows.bed"),group=GROUPS),
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","integration_windows.bed.annotated.txt"),group=GROUPS),
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","integration_windows.annotated.bed"),group=GROUPS),
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","lab_verified_sites.hg38.bed.annotated.txt"),group=GROUPS),
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","lab_verified_sites.annotated.bed"),group=GROUPS),
