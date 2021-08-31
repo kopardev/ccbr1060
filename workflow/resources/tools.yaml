@@ -16,7 +16,7 @@ fastq_screen:
 hisat:
  version: "hisat/2.2.1.0"
 multiqc:
- version: "multiqc/1.9"
+ version: "multiqc/1.11"
 picard:
  version: "picard/2.25.0"
 python37:
