@@ -96,7 +96,7 @@ rm -rf $tmpdir
 
 rule bam2bw:
     input:
-        bam=rules.star1p.output.bam,
+        bam=rules.star.output.bam,
     output:
         fbw=join(RESULTSDIR,"{sample}","STAR1p","withChimericJunctions","{sample}.fwd.bw"),
         rbw=join(RESULTSDIR,"{sample}","STAR1p","withChimericJunctions","{sample}.rev.bw"),
