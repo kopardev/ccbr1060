@@ -1,6 +1,6 @@
 
 
-rule star1p:
+rule star:
     input:
         R1=rules.cutadapt.output.of1,
         R2=rules.cutadapt.output.of2
@@ -55,7 +55,8 @@ if [ "{params.peorse}" == "PE" ];then
     --outFilterIntronMotifs None \
     --sjdbGTFfile {params.gtf} \
     --outTmpDir $tmpdir \
-    --sjdbOverhang $overhang
+    --sjdbOverhang $overhang \
+    --twopassMode Basic
 
     # running STAR with "chimOutType WithinBAM"
     if [ ! -f {params.outdir}/withChimericJunctions ];then mkdir -p {params.outdir}/withChimericJunctions;fi
@@ -83,7 +84,9 @@ if [ "{params.peorse}" == "PE" ];then
     --outFilterIntronMotifs None \
     --sjdbGTFfile {params.gtf} \
     --outTmpDir $tmpdir \
-    --sjdbOverhang $overhang
+    --sjdbOverhang $overhang \
+    --twopassMode Basic \
+    --quantMode GeneCounts
 
     # index bam file
     samtools index {output.bam}
