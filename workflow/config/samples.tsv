@@ -1,9 +1,17 @@
-sampleName	path_to_R1_fastq	path_to_R2_fastq
-test1	/data/CCBR/rawdata/ccbr1060/test1.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/test1.R2.fastq.gz
-test2	/data/CCBR/rawdata/ccbr1060/test2.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/test2.R2.fastq.gz
-test3	/data/CCBR/rawdata/ccbr1060/test3.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/test3.R2.fastq.gz
-test4	/data/CCBR/rawdata/ccbr1060/test4.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/test4.R2.fastq.gz
-test5	/data/CCBR/rawdata/ccbr1060/test5.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/test5.R2.fastq.gz
-test6	/data/CCBR/rawdata/ccbr1060/test6.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/test6.R2.fastq.gz
-test7	/data/CCBR/rawdata/ccbr1060/test7.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/test7.R2.fastq.gz
-test8	/data/CCBR/rawdata/ccbr1060/test8.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/test8.R2.fastq.gz
+sampleName	group	path_to_R1_fastq	path_to_R2_fastq
+596-11-1	596-11	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-11-1.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-11-1.R2.fastq.gz
+596-11-2	596-11	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-11-2.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-11-2.R2.fastq.gz
+596-11-Dox-1	596-11	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-11-Dox-1.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-11-Dox-1.R2.fastq.gz
+596-11-Dox-2	596-11	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-11-Dox-2.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-11-Dox-2.R2.fastq.gz
+596-1-1	596-1	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-1-1.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-1-1.R2.fastq.gz
+596-1-2	596-1	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-1-2.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-1-2.R2.fastq.gz
+596-1-Dox-1	596-1	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-1-Dox-1.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-1-Dox-1.R2.fastq.gz
+596-1-Dox-2	596-1	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-1-Dox-2.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-1-Dox-2.R2.fastq.gz
+596-6-1	596-6	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-6-1.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-6-1.R2.fastq.gz
+596-6-2	596-6	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-6-2.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-6-2.R2.fastq.gz
+596-6-Dox-1	596-6	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-6-Dox-1.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-6-Dox-1.R2.fastq.gz
+596-6-Dox-2	596-6	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-6-Dox-2.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-6-Dox-2.R2.fastq.gz
+596-7-1	596-7	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-7-1.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-7-1.R2.fastq.gz
+596-7-2	596-7	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-7-2.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-7-2.R2.fastq.gz
+596-7-Dox-1	596-7	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-7-Dox-1.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-7-Dox-1.R2.fastq.gz
+596-7-Dox-2	596-7	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-7-Dox-2.R1.fastq.gz	/data/CCBR/rawdata/ccbr1060/HGHY2DRXY/fastqs/596-7-Dox-2.R2.fastq.gz
