@@ -24,20 +24,23 @@ rule all:
         expand(join(QCDIR,"FQscreen","{sample}.R1.trim_screen.png"), sample=SAMPLES),
         expand(join(QCDIR,"FQscreen","{sample}.R2.trim_screen.txt"), sample=SAMPLES),
         expand(join(QCDIR,"FQscreen","{sample}.R2.trim_screen.png"), sample=SAMPLES),
-        ## star1p
-        expand(join(RESULTSDIR,"{sample}","STAR1p","withoutChimericJunctions","{sample}_p1.Chimeric.out.junction"),sample=SAMPLES),
-        expand(join(RESULTSDIR,"{sample}","STAR1p","withChimericJunctions","{sample}_p1.Aligned.sortedByCoord.out.bam"),sample=SAMPLES),
-        expand(join(RESULTSDIR,"{sample}","STAR1p","withChimericJunctions","{sample}_p1.Aligned.sortedByCoord.out.bam.bai"),sample=SAMPLES),
+        ## STAR
+        expand(join(RESULTSDIR,"{sample}","STAR","withoutChimericJunctions","{sample}_p1.Chimeric.out.junction"),sample=SAMPLES),
+        expand(join(RESULTSDIR,"{sample}","STAR","withChimericJunctions","{sample}_p1.Aligned.sortedByCoord.out.bam"),sample=SAMPLES),
+        expand(join(RESULTSDIR,"{sample}","STAR","withChimericJunctions","{sample}_p1.Aligned.sortedByCoord.out.bam.bai"),sample=SAMPLES),
+        join(RESULTSDIR,"nreads.txt"),
         ## f and r bigwigs
-        expand(join(RESULTSDIR,"{sample}","STAR1p","withChimericJunctions","{sample}.fwd.bw"),sample=SAMPLES),
-        expand(join(RESULTSDIR,"{sample}","STAR1p","withChimericJunctions","{sample}.rev.bw"),sample=SAMPLES),
+        expand(join(RESULTSDIR,"{sample}","STAR","withChimericJunctions","{sample}.fwd.bw"),sample=SAMPLES),
+        expand(join(RESULTSDIR,"{sample}","STAR","withChimericJunctions","{sample}.rev.bw"),sample=SAMPLES),
         ## multiqc
         join(RESULTSDIR,"QC","multiqc_report.html"),
         ## filtered chimeric junctions
         expand(join(RESULTSDIR,"shRNA_integration","{group}","filtered_chimeric_junctions.tsv"),group=GROUPS),
         ## integration windows
         expand(join(RESULTSDIR,"shRNA_integration","{group}","integration_windows.bed"),group=GROUPS),
-        expand(join(RESULTSDIR,"shRNA_integration","{group}","integration_windows.bed.annotated.txt"),group=GROUPS),
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","integration_windows.bed.annotation_lookup.txt"),group=GROUPS),
         expand(join(RESULTSDIR,"shRNA_integration","{group}","integration_windows.annotated.bed"),group=GROUPS),
-        expand(join(RESULTSDIR,"shRNA_integration","{group}","lab_verified_sites.hg38.bed.annotated.txt"),group=GROUPS),
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","lab_verified_sites.bed.annotation_lookup.txt"),group=GROUPS),
         expand(join(RESULTSDIR,"shRNA_integration","{group}","lab_verified_sites.annotated.bed"),group=GROUPS),
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","integration_windows.nearest_lab_verified_lookup.txt"),group=GROUPS),
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","counts.tsv"),group=GROUPS),

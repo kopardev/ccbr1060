@@ -1,23 +1,24 @@
-
+localrules: get_total_aligned_reads
 
 rule star:
     input:
         R1=rules.cutadapt.output.of1,
         R2=rules.cutadapt.output.of2
     output:
-        junction=join(RESULTSDIR,"{sample}","STAR1p","withoutChimericJunctions","{sample}_p1.Chimeric.out.junction"),
-        bam=join(RESULTSDIR,"{sample}","STAR1p","withChimericJunctions","{sample}_p1.Aligned.sortedByCoord.out.bam"),
-        bai=join(RESULTSDIR,"{sample}","STAR1p","withChimericJunctions","{sample}_p1.Aligned.sortedByCoord.out.bam.bai"),
+        junction=join(RESULTSDIR,"{sample}","STAR","withoutChimericJunctions","{sample}_p1.Chimeric.out.junction"),
+        pergenecounts=join(RESULTSDIR,"{sample}","STAR","withChimericJunctions","{sample}_p1.ReadsPerGene.out.tab"),
+        bam=join(RESULTSDIR,"{sample}","STAR","withChimericJunctions","{sample}_p1.Aligned.sortedByCoord.out.bam"),
+        bai=join(RESULTSDIR,"{sample}","STAR","withChimericJunctions","{sample}_p1.Aligned.sortedByCoord.out.bam.bai"),
     params:
         sample="{sample}",
         peorse=get_peorse,
         workdir=WORKDIR,
-        outdir=join(RESULTSDIR,"{sample}","STAR1p"),
+        outdir=join(RESULTSDIR,"{sample}","STAR"),
         starindexdir=STARINDEXDIR,
         alignTranscriptsPerReadNmax=TOOLS["star"]["alignTranscriptsPerReadNmax"],
         gtf=GTF
     envmodules: TOOLS["star"]["version"], TOOLS["samtools"]["version"]
-    threads: getthreads("star1p")
+    threads: getthreads("STAR")
     shell:"""
 tmpdir="/dev/shm/{params.sample}"
 if [ -d /lscratch/${{SLURM_JOBID}} ];then tmpdir="/lscratch/${{SLURM_JOBID}}/{params.sample}";fi
@@ -98,8 +99,8 @@ rule bam2bw:
     input:
         bam=rules.star.output.bam,
     output:
-        fbw=join(RESULTSDIR,"{sample}","STAR1p","withChimericJunctions","{sample}.fwd.bw"),
-        rbw=join(RESULTSDIR,"{sample}","STAR1p","withChimericJunctions","{sample}.rev.bw"),
+        fbw=join(RESULTSDIR,"{sample}","STAR","withChimericJunctions","{sample}.fwd.bw"),
+        rbw=join(RESULTSDIR,"{sample}","STAR","withChimericJunctions","{sample}.rev.bw"),
     params:
         script=join(SCRIPTSDIR,"bam_to_strand_specific_bigwigs.bash"),
         sample="{sample}"
@@ -111,3 +112,23 @@ cd $bn
 bash {params.script} --sample {params.sample} --bam {input.bam}
 """
     
+rule get_total_aligned_reads:
+    input:
+        expand(join(RESULTSDIR,"{sample}","STAR","withChimericJunctions","{sample}_p1.ReadsPerGene.out.tab"),sample=SAMPLES)
+    output:
+        nreads=join(RESULTSDIR,"nreads.txt")
+    params:
+        strandedness=config["library_strand_info"]
+    shell:"""
+for f in {input};do
+    sample=$(basename $f|awk -F"_p1" '{{print $1}}')
+    if [ "{params.strandedness}" == "1" ];then
+        nreads=$(grep -v "^N_" $f|awk '{{sum=$2+sum}}END{{print sum}}')
+    elif [ "{params.strandedness}" == "2" ];then
+        nreads=$(grep -v "^N_" $f|awk '{{sum=$3+sum}}END{{print sum}}')
+    elif [ "{params.strandedness}" == "3" ];then
+        nreads=$(grep -v "^N_" $f|awk '{{sum=$4+sum}}END{{print sum}}')
+    fi
+    echo -ne "$sample\t$nreads\n"
+done > {output.nreads}
+"""
