@@ -44,3 +44,12 @@ rule all:
         expand(join(RESULTSDIR,"shRNA_integration","{group}","lab_verified_sites.annotated.bed"),group=GROUPS),
         expand(join(RESULTSDIR,"shRNA_integration","{group}","integration_windows.nearest_lab_verified_lookup.txt"),group=GROUPS),
         expand(join(RESULTSDIR,"shRNA_integration","{group}","counts.tsv"),group=GROUPS),
+        join(RESULTSDIR,"shRNA_integration","integration_sites.counts.xlsx"),
+        ## junction annotation and aggregating OST calls
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","annotated_junctions_files.lst"),group=GROUPS),
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","detailed_counts_files.lst"),group=GROUPS),
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","aggregate_OST_calls_files.lst"),group=GROUPS),
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","{group}.detailed_counts.xlsx"),group=GROUPS),
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","{group}.aggregate_OST_calls.xlsx"),group=GROUPS),
+        ## shRNA coordinate distribution plots
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","{group}.shRNA_coordinate_distribution.pdf"),group=GROUPS),

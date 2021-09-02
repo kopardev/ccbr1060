@@ -22,6 +22,7 @@ shRNA_detection:
   nreads_threshold: "5"
   integration_window_flanking_width: "100"
   genes_bed6: "/data/CCBR/projects/ccbr1060/resources/hg38/genes.bed6"
+  shRNA_integration_windows_bed: "PIPELINE_HOME/config/integration_windows.shRNA.bed"
 lab_verified_sites:
   596-1: "/data/CCBR/projects/ccbr1060/resources/lab_verified_sites/lab_verified_sites.596-1.hg38.filtered.bed"
   596-6: "/data/CCBR/projects/ccbr1060/resources/lab_verified_sites/lab_verified_sites.596-6.hg38.filtered.bed"
