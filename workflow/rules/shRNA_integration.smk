@@ -9,7 +9,7 @@ def get_junction_files(wildcards):
 def get_verified_sites_bed(wildcards):
     return CONFIG["lab_verified_sites"][wildcards.group]
 
-localrules: get_filtered_chimeric_junctions, make_integration_windows, annotate_integration_windows, nearest_lab_verified_site_lookup, create_count_matrix, annotate_junctions_init, make_excel_workbooks, make_counts_excel_workbook
+localrules: get_filtered_chimeric_junctions, make_integration_windows, annotate_integration_windows, nearest_lab_verified_site_lookup, create_count_matrix, annotate_junctions_init, make_excel_workbooks, make_counts_excel_workbook, plot_shRNA_coordinate_distribution, plot_per_iw_distribution, make_annotated_junctions_files_megalist
 
 rule get_filtered_chimeric_junctions:
     input:
@@ -241,4 +241,53 @@ while read a;do
 	    awk -F"\\t" -v OFS="\\t" '{{if ($3=="+") {{$3="-";print $1,$2,$3,$4}} else {{$3="+";print $1,$2,$3,$4}}}}'
 done < {input.annotated_junctions_files_list} >> {output.coordinate_tsv}
 Rscript {params.rscript} {output.coordinate_tsv} {output.coordinate_pdf}
+"""
+
+rule plot_per_iw_distribution:
+    input:
+        detailed_counts_files_list=rules.annotate_junctions_and_aggregate_OST_calls.output.detailed_counts_files_list,
+    output:
+        pdf=join(RESULTSDIR,"shRNA_integration","{group}","{group}.histograms_per_integration_window.pdf"),
+    params:
+        group="{group}",
+        outdir=join(RESULTSDIR,"shRNA_integration","{group}"),
+        rscript=join(SCRIPTSDIR,"plot_histograms_per_integration_window.R") 
+    envmodules: TOOLS["R"]["version"]
+    shell:"""
+set -euxo pipefail
+Rscript {params.rscript} {output.pdf} $(cat {input.detailed_counts_files_list} | tr '\\n' ' ')
+"""
+
+rule make_annotated_junctions_files_megalist:
+    input:
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","annotated_junctions_files.lst"),group=GROUPS)
+    output:
+        out=join(RESULTSDIR,"annotated_junctions_files.megalst")
+    shell:"""
+set -euxo pipefail
+cat {input} > {output}
+"""
+
+rule make_shRNA_chimeric_reads_bigwigs:
+    input:
+        inbam=rules.star.output.bam,
+        annotated_junctions_files_list=rules.make_annotated_junctions_files_megalist.output.out
+    output:
+        outbam=join(RESULTSDIR,"{sample}","STAR","withChimericJunctions","shRNA_chimeric_only","{sample}.shRNA_chimeric.bam"),
+        fwdbw=join(RESULTSDIR,"{sample}","STAR","withChimericJunctions","shRNA_chimeric_only","{sample}.shRNA_chimeric.fwd.bw"),
+        revbw=join(RESULTSDIR,"{sample}","STAR","withChimericJunctions","shRNA_chimeric_only","{sample}.shRNA_chimeric.rev.bw"),
+    params:
+        sample="{sample}",
+        outdir=join(RESULTSDIR,"{sample}","STAR","withChimericJunctions","shRNA_chimeric_only"),
+        pyscript=join(SCRIPTSDIR,"extract_shRNA_chimeric_reads.py"),
+        shscript=join(SCRIPTSDIR,"bam_to_strand_specific_bigwigs.bash"),
+    envmodules: TOOLS["samtools"]["version"]
+    shell:"""
+set -euxo pipefail
+cd {params.outdir}
+sn="{params.sample}"
+annotated_junctions_file=$(grep -m1 "${{sn}}.annotated.junctions" {input.annotated_junctions_files_list})
+python {params.pyscript} $annotated_junctions_file {input.inbam} {output.outbam}
+samtools index {output.outbam}
+bash {params.shscript} --sample {params.sample}.shRNA_chimeric --bam {output.outbam} 
 """
