@@ -80,6 +80,10 @@
     "split_linear_reads_BAM_create_BW": {
         "mem": "120g",
         "time": "24:00:00"        
+    },
+    "make_shRNA_chimeric_reads_bigwigs": {
+        "mem": "120g",
+        "time": "24:00:00"          
     }
 
 }

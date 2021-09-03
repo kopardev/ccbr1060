@@ -53,3 +53,8 @@ rule all:
         expand(join(RESULTSDIR,"shRNA_integration","{group}","{group}.aggregate_OST_calls.xlsx"),group=GROUPS),
         ## shRNA coordinate distribution plots
         expand(join(RESULTSDIR,"shRNA_integration","{group}","{group}.shRNA_coordinate_distribution.pdf"),group=GROUPS),
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","{group}.histograms_per_integration_window.pdf"),group=GROUPS),
+        ## shRNA chimeric alignments
+        expand(join(RESULTSDIR,"{sample}","STAR","withChimericJunctions","shRNA_chimeric_only","{sample}.shRNA_chimeric.bam"),sample=SAMPLES),
+        expand(join(RESULTSDIR,"{sample}","STAR","withChimericJunctions","shRNA_chimeric_only","{sample}.shRNA_chimeric.fwd.bw"),sample=SAMPLES),
+        expand(join(RESULTSDIR,"{sample}","STAR","withChimericJunctions","shRNA_chimeric_only","{sample}.shRNA_chimeric.rev.bw"),sample=SAMPLES),
