@@ -1,0 +1,37 @@
+bedtools:
+ version: "bedtools/2.29.2"
+bowtie2:
+ version: "bowtie/2-2.4.4"
+bwa:
+ version: "bwa/0.7.17"
+circexplorer:
+ version: "circexplorer2/2.3.5"
+cutadapt:
+ version: "cutadapt/1.18"
+ minlen: "15"
+fastqc:
+ version: "fastqc/0.11.9"
+fastq_screen:
+ version: "fastq_screen/0.14.1"
+hisat:
+ version: "hisat/2.2.1.0"
+multiqc:
+ version: "multiqc/1.11"
+picard:
+ version: "picard/2.25.0"
+python37:
+ version: "python/3.7"
+sambamba:
+ version: "sambamba/0.8.0"
+samtools:
+ version: "samtools/1.11"
+star:
+ version: "STAR/2.7.6a"
+ alignTranscriptsPerReadNmax: "20000"
+stringtie:
+ version: "stringtie/2.1.4"
+ucsc:
+ version: "ucsc/407"
+R:
+ version: "R/4.0.3"
+

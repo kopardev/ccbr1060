@@ -1,0 +1,4 @@
+[-] Unloading snakemake  6.0.5 
+[+] Loading snakemake  6.0.5 
+[+] Loading samtools 1.12  ... 
+Error: no Snakefile found, tried Snakefile, snakefile, workflow/Snakefile, workflow/snakefile.

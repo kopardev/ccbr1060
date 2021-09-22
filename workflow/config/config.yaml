@@ -1,0 +1,31 @@
+## The working dir... output will be in the results subfolder of the workdir
+workdir: "WORKDIR"
+##
+## tab delimited samples file ... should have the following 3 columns
+## sampleName   path_to_R1_fastq        path_to_R2_fastq
+##
+samples: "WORKDIR/samples.tsv"
+scriptsdir: "WORKDIR/scripts"
+resourcesdir: "PIPELINE_HOME/resources"
+tools: "WORKDIR/tools.yaml"
+cluster: "WORKDIR/cluster.json"
+##
+### Resources
+##
+ref_gtf: "/data/CCBR/projects/ccbr1060/Hg38_shRNA_hybrid/Hg38_shRNA.gtf"
+star_index_dir: "/data/CCBR/projects/ccbr1060/Hg38_shRNA_hybrid/STAR_index_no_GTF_2.7.6a"
+fastqscreen_config: "PIPELINE_HOME/config/fastq_screen_config.txt"
+# other paramters
+# strand info 1=unstranded 2=stranded 3=stranded_reverse
+library_strand_info: "3"
+shRNA_detection:
+  nreads_threshold: "5"
+  integration_window_flanking_width: "100"
+  genes_bed6: "/data/CCBR/projects/ccbr1060/resources/hg38/genes.bed6"
+  shRNA_integration_windows_bed: "PIPELINE_HOME/config/integration_windows.shRNA.bed"
+lab_verified_sites:
+  596-1: "/data/CCBR/projects/ccbr1060/resources/lab_verified_sites/lab_verified_sites.596-1.hg38.filtered.bed"
+  596-6: "/data/CCBR/projects/ccbr1060/resources/lab_verified_sites/lab_verified_sites.596-6.hg38.filtered.bed"
+  596-7: "/data/CCBR/projects/ccbr1060/resources/lab_verified_sites/lab_verified_sites.596-7.hg38.filtered.bed"
+  596-11: "/data/CCBR/projects/ccbr1060/resources/lab_verified_sites/lab_verified_sites.596-11.hg38.filtered.bed"
+

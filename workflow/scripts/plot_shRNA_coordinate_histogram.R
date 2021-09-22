@@ -1,0 +1,8 @@
+library(ggplot2)
+options <- commandArgs(trailingOnly = TRUE)
+d=read.csv(options[1],header=TRUE,sep="\t")
+pdf(options[2])
+#ggplot(d,aes(x=shRNA_coordinate))+geom_histogram(bins=100,aes(color=shRNA_strand))+facet_wrap(sample~is_OST_read,ncol=2)
+ggplot(d,aes(x=shRNA_coordinate))+geom_histogram(bins=100,aes(color=shRNA_strand))+facet_wrap(sample_name~OST,ncol=2)
+dev.off()
+#ggplot(d,aes(x=coordinate))+geom_histogram(bins = 500) + xlim(c(0,13000))

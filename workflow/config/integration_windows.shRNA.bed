@@ -1,0 +1,8 @@
+chr_shRNA	400	650	chr_shRNA:400-650|5LTR|+	.	+
+chr_shRNA	2150	2350	chr_shRNA:2150-2350|BleoR|-	.	-
+chr_shRNA	2950	3850	chr_shRNA:2950-3850|RFP|+	.	+
+chr_shRNA	4250	4600	chr_shRNA:4250-4600|UBCpromoter|+	.	+
+chr_shRNA	5100	6800	chr_shRNA:5100-6800|rtTA3|+	.	+
+chr_shRNA	7300	8050	chr_shRNA:7300-8050|WPRE|+	.	+
+chr_shRNA	7450	7550	chr_shRNA:7450-7550|WPRE|-	.	-
+chr_shRNA	8100	8450	chr_shRNA:8100-8450|3LTR|+	.	+

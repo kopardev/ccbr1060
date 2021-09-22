@@ -1,0 +1,60 @@
+from os.path import join
+
+include: join("rules/init.smk")
+include: join("rules/trim.smk")
+include: join("rules/align.smk")
+include: join("rules/qc.smk")
+include: join("rules/shRNA_integration.smk")
+
+localrules: all
+
+rule all:
+    input:
+        ## cutadapt
+        # cutadapt files are now temp() to save space
+        expand(join(RESULTSDIR,"{sample}","trim","{sample}.R1.trim.fastq.gz"),sample=SAMPLES),
+        expand(join(RESULTSDIR,"{sample}","trim","{sample}.R2.trim.fastq.gz"),sample=SAMPLES),
+        ## fastqc
+        expand(join(QCDIR,"fastqc","{sample}.R1_fastqc.zip"), sample=SAMPLES),
+        expand(join(QCDIR,"fastqc","{sample}.R2_fastqc.zip"), sample=SAMPLES),
+        expand(join(QCDIR,"fastqc","{sample}.R1.trim_fastqc.zip"), sample=SAMPLES),
+        expand(join(QCDIR,"fastqc","{sample}.R2.trim_fastqc.zip"), sample=SAMPLES),
+        ## fastq_screen
+        expand(join(QCDIR,"FQscreen","{sample}.R1.trim_screen.txt"), sample=SAMPLES),
+        expand(join(QCDIR,"FQscreen","{sample}.R1.trim_screen.png"), sample=SAMPLES),
+        expand(join(QCDIR,"FQscreen","{sample}.R2.trim_screen.txt"), sample=SAMPLES),
+        expand(join(QCDIR,"FQscreen","{sample}.R2.trim_screen.png"), sample=SAMPLES),
+        ## STAR
+        expand(join(RESULTSDIR,"{sample}","STAR","withoutChimericJunctions","{sample}_p1.Chimeric.out.junction"),sample=SAMPLES),
+        expand(join(RESULTSDIR,"{sample}","STAR","withChimericJunctions","{sample}_p1.Aligned.sortedByCoord.out.bam"),sample=SAMPLES),
+        expand(join(RESULTSDIR,"{sample}","STAR","withChimericJunctions","{sample}_p1.Aligned.sortedByCoord.out.bam.bai"),sample=SAMPLES),
+        join(RESULTSDIR,"nreads.txt"),
+        ## f and r bigwigs
+        expand(join(RESULTSDIR,"{sample}","STAR","withChimericJunctions","{sample}.fwd.bw"),sample=SAMPLES),
+        expand(join(RESULTSDIR,"{sample}","STAR","withChimericJunctions","{sample}.rev.bw"),sample=SAMPLES),
+        ## multiqc
+        join(RESULTSDIR,"QC","multiqc_report.html"),
+        ## filtered chimeric junctions
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","filtered_chimeric_junctions.tsv"),group=GROUPS),
+        ## integration windows
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","integration_windows.bed"),group=GROUPS),
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","integration_windows.bed.annotation_lookup.txt"),group=GROUPS),
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","integration_windows.annotated.bed"),group=GROUPS),
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","lab_verified_sites.bed.annotation_lookup.txt"),group=GROUPS),
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","lab_verified_sites.annotated.bed"),group=GROUPS),
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","integration_windows.nearest_lab_verified_lookup.txt"),group=GROUPS),
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","counts.tsv"),group=GROUPS),
+        join(RESULTSDIR,"shRNA_integration","integration_sites.counts.xlsx"),
+        ## junction annotation and aggregating OST calls
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","annotated_junctions_files.lst"),group=GROUPS),
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","detailed_counts_files.lst"),group=GROUPS),
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","aggregate_OST_calls_files.lst"),group=GROUPS),
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","{group}.detailed_counts.xlsx"),group=GROUPS),
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","{group}.aggregate_OST_calls.xlsx"),group=GROUPS),
+        ## shRNA coordinate distribution plots
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","{group}.shRNA_coordinate_distribution.pdf"),group=GROUPS),
+        expand(join(RESULTSDIR,"shRNA_integration","{group}","{group}.histograms_per_integration_window.pdf"),group=GROUPS),
+        ## shRNA chimeric alignments
+        expand(join(RESULTSDIR,"{sample}","STAR","withChimericJunctions","shRNA_chimeric_only","{sample}.shRNA_chimeric.bam"),sample=SAMPLES),
+        expand(join(RESULTSDIR,"{sample}","STAR","withChimericJunctions","shRNA_chimeric_only","{sample}.shRNA_chimeric.fwd.bw"),sample=SAMPLES),
+        expand(join(RESULTSDIR,"{sample}","STAR","withChimericJunctions","shRNA_chimeric_only","{sample}.shRNA_chimeric.rev.bw"),sample=SAMPLES),
