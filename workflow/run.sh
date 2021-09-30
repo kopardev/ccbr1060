@@ -111,7 +111,7 @@ done
 
 # copy essential folders
 for f in $ESSENTIAL_FOLDERS;do
-  rsync -az --progress $f $WORKDIR/
+  rsync -az --progress ${PIPELINE_HOME}/$f $WORKDIR/
 done
 
 #create log and stats folders
@@ -138,8 +138,41 @@ function reconfig(){
 # this is only for dev purposes when new key-value pairs are being added to the config file
 
   check_essential_files
+  mv $WORKDIR/config.yaml $WORKDIR/config.yaml.bak
   sed -e "s/PIPELINE_HOME/${PIPELINE_HOME//\//\\/}/g" -e "s/WORKDIR/${WORKDIR//\//\\/}/g" ${PIPELINE_HOME}/config/config.yaml > $WORKDIR/config.yaml
   echo "$WORKDIR/config.yaml has been updated!"
+
+}
+
+function recluster(){
+# recopy over cluster.json
+# this is only for dev purposes when new key-value pairs are being added to the cluster json
+
+  check_essential_files
+  mv $WORKDIR/cluster.json $WORKDIR/cluster.json.bak
+  sed -e "s/PIPELINE_HOME/${PIPELINE_HOME//\//\\/}/g" -e "s/WORKDIR/${WORKDIR//\//\\/}/g" ${PIPELINE_HOME}/resources/cluster.json > $WORKDIR/cluster.json
+  echo "$WORKDIR/cluster.json has been updated!"
+
+}
+
+function retool(){
+# recopy over tools.yaml
+# this is only for dev purposes when new key-value pairs are being added to the tools yaml
+
+  check_essential_files
+  mv $WORKDIR/tools.yaml $WORKDIR/tools.yaml.bak
+  sed -e "s/PIPELINE_HOME/${PIPELINE_HOME//\//\\/}/g" -e "s/WORKDIR/${WORKDIR//\//\\/}/g" ${PIPELINE_HOME}/resources/tools.yaml > $WORKDIR/tools.yaml
+  echo "$WORKDIR/tool.yaml has been updated!"
+
+}
+
+function rescript(){
+# recopy the scriptsdir
+
+  check_essential_files
+  mv $WORKDIR/scripts $WORKDIR/scripts.bak
+  rsync -az --progress ${PIPELINE_HOME}/scripts $WORKDIR/
+  echo "$WORKDIR/scripts folder has been updated!"
 
 }
 
@@ -391,6 +424,9 @@ function main(){
     dry) dryrun && exit 0;;                      # hidden option
     local) runlocal && exit 0;;                  # hidden option
     reconfig) reconfig && exit 0;;               # hidden option for debugging
+    recluster) recluster && exit 0;;              # hidden option for debugging
+    retool) retool && exit 0;;                 # hidden option for debugging
+    rescript) rescript && exit 0;;               # hidden option for debugging
     printbinds) printbinds && exit 0;;           # hidden option
     *) err "Unknown RUNMODE \"$RUNMODE\"";;
   esac

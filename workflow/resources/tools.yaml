@@ -34,4 +34,5 @@ ucsc:
  version: "ucsc/407"
 R:
  version: "R/4.0.3"
-
+parallel:
+ version: "parallel/20210822"

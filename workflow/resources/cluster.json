@@ -84,6 +84,10 @@
     "make_shRNA_chimeric_reads_bigwigs": {
         "mem": "120g",
         "time": "24:00:00"          
+    },
+    "get_mRNAlength_lookup": {
+        "threads": "16",
+        "time": "4:00:00" 
     }
 
 }
