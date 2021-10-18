@@ -5,6 +5,7 @@ include: join("rules/trim.smk")
 include: join("rules/align.smk")
 include: join("rules/qc.smk")
 include: join("rules/shRNA_integration.smk")
+include: join("rules/rsem.smk")
 
 localrules: all
 
