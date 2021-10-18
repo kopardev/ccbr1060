@@ -59,3 +59,5 @@ rule all:
         expand(join(RESULTSDIR,"{sample}","STAR","withChimericJunctions","shRNA_chimeric_only","{sample}.shRNA_chimeric.bam"),sample=SAMPLES),
         expand(join(RESULTSDIR,"{sample}","STAR","withChimericJunctions","shRNA_chimeric_only","{sample}.shRNA_chimeric.fwd.bw"),sample=SAMPLES),
         expand(join(RESULTSDIR,"{sample}","STAR","withChimericJunctions","shRNA_chimeric_only","{sample}.shRNA_chimeric.rev.bw"),sample=SAMPLES),
+        ## RSEM counts
+        expand(join(RESULTSDIR,"{sample}","RSEM","{sample}.RSEM.genes.results"),sample=SAMPLES)
