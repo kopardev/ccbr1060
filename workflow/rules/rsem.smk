@@ -50,7 +50,7 @@ rule star_for_rsem:
         alignTranscriptsPerReadNmax=TOOLS["star"]["alignTranscriptsPerReadNmax"],
         gtf=GTF
     envmodules: TOOLS["star"]["version"], TOOLS["samtools"]["version"]
-    threads: getthreads("STAR")
+    threads: getthreads("star")
     shell:"""
 set -exuf -o pipefail
 tmpdir="/dev/shm/{params.sample}"
