@@ -12,6 +12,7 @@ cluster: "WORKDIR/cluster.json"
 ##
 ### Resources
 ##
+ref_fa: "/data/CCBR/projects/ccbr1060/Hg38_shRNA_hybrid/Hg38_shRNA.fa"
 ref_gtf: "/data/CCBR/projects/ccbr1060/Hg38_shRNA_hybrid/Hg38_shRNA.gtf"
 star_index_dir: "/data/CCBR/projects/ccbr1060/Hg38_shRNA_hybrid/STAR_index_no_GTF_2.7.6a"
 fastqscreen_config: "PIPELINE_HOME/config/fastq_screen_config.txt"
