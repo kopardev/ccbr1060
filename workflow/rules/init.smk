@@ -174,6 +174,10 @@ GTF=config['ref_gtf']
 check_readaccess(GTF)
 print("# ANNOTATION FILE :",GTF)
 
+REFFA=config['ref_fa']
+check_readaccess(REFFA)
+print("# REFERENCE FASTA :",REFFA)
+
 STARINDEXDIR=config['star_index_dir']
 check_readaccess(STARINDEXDIR)
 print("# STAR INDEX DIR  :",STARINDEXDIR)
