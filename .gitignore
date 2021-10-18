@@ -3,3 +3,5 @@
 !.gitignore
 !.gitattributes
 site/
+**/._*
+**/.DS_Store
