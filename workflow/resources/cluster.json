@@ -88,6 +88,14 @@
     "get_mRNAlength_lookup": {
         "threads": "16",
         "time": "4:00:00" 
-    }
+    },
+	"create_rsem_index":{
+        "threads"	: "56",
+      "mem"		: "220g"
+    },
+	"get_rsem_counts":{
+		"threads"	: "56",
+		"mem"		: "220g"		
+	}
 
 }
