@@ -37,7 +37,8 @@ rm -f ${{bn}}.tmp
 rule star_for_rsem:
     input:
         R1=rules.cutadapt.output.of1,
-        R2=rules.cutadapt.output.of2
+        R2=rules.cutadapt.output.of2,
+        ump=rules.create_rsem_index.output.ump
     output:
         bam=join(RESULTSDIR,"{sample}","RSEM","{sample}.Aligned.out.bam"),
         tbam=join(RESULTSDIR,"{sample}","RSEM","{sample}.Aligned.toTranscriptome.out.bam"),
