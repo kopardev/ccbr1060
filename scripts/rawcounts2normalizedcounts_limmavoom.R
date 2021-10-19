@@ -13,7 +13,7 @@ parser$add_argument("-r", "--rawcountsmatrix",
                     required=TRUE)
 parser$add_argument("-c", "--coldata", 
                     type="character", 
-                    help="two tab delimited columns.. samplename and condition",
+                    help="two tab delimited columns.. sample_name and condition",
                     required=TRUE)
 parser$add_argument("-i", "--indexcols", 
                     type="character",
@@ -48,7 +48,13 @@ debug=0
 rawcountsmatrix=args$rawcountsmatrix
 coldata=args$coldata
 indexcols=unlist(strsplit(args$indexcols,","))
+#print(indexcols)
+if (length(args$excludecols)==0){
+excludecols=c()
+} else {
 excludecols=unlist(strsplit(args$excludecols,","))
+}
+#print(excludecols)
 outfile=args$outfil
 cpmthreshold=as.numeric(args$cpmthreshold)
 min_group_fraction=as.numeric(args$mingroupfraction)
