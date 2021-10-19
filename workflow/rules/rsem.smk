@@ -109,7 +109,7 @@ rule get_rsem_counts:
     threads: getthreads("get_rsem_counts")
     params:
         sample="{sample}",
-        rsemdir=join(WORKDIR,"rsem")
+        rsemdir=join(RESULTSDIR,"{sample}","RSEM")
     shell:"""
 set -exuf -o pipefail
 cd {params.rsemdir}
