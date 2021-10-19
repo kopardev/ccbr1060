@@ -61,7 +61,7 @@ if [ -d $tmpdir ];then rm -rf $tmpdir;fi
 if [ ! -d {params.outdir} ];then mkdir -p {params.outdir};fi
 if [ "{params.peorse}" == "PE" ];then
 # paired-end
-    overhang=$(zcat {input} | awk -v maxlen=100 'NR%4==2 {{if (length($1) > maxlen+0) maxlen=length($1)}}; END {{print maxlen-1}}')
+    overhang=$(zcat {input.R1} {input.R2} | awk -v maxlen=100 'NR%4==2 {{if (length($1) > maxlen+0) maxlen=length($1)}}; END {{print maxlen-1}}')
     echo "sjdbOverhang for STAR: ${{overhang}}"
 
     cd {params.outdir}
