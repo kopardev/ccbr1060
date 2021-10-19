@@ -40,6 +40,11 @@
         "threads": "56",
         "time": "24:00:00"
     },
+    "star_for_rsem": {
+        "mem": "200g",
+        "threads": "56",
+        "time": "24:00:00"
+    },
     "star2p": {
         "mem": "512g",
         "threads": "56",
@@ -89,13 +94,13 @@
         "threads": "16",
         "time": "4:00:00" 
     },
-	"create_rsem_index":{
+    "create_rsem_index":{
         "threads"	: "56",
       "mem"		: "220g"
     },
-	"get_rsem_counts":{
-		"threads"	: "56",
-		"mem"		: "220g"		
-	}
+    "get_rsem_counts":{
+        "threads"   : "56",
+        "mem" : "220g"	
+    }
 
 }
