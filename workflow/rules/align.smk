@@ -143,7 +143,7 @@ rule get_mRNAlength_lookup:
     threads: getthreads("get_mRNAlength_lookup")
     envmodules: TOOLS["parallel"]
     shell:"""
-set -exuf -o pipefail
+set -ex -o pipefail
 dn=$(dirname {output.lookup})
 cd $dn
 grep -v "^#" {input.gtf}|cut -f1|sort|uniq > chromosomes.lst
