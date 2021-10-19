@@ -114,7 +114,7 @@ rule get_rsem_counts:
 set -exuf -o pipefail
 cd {params.rsemdir}
 # inter strandedness
-samtools index -@{threads} {input.bam}
+#samtools index -@{threads} {input.bam}
 infer_experiment.py -r {input.bed12} -i {input.bam} -s 1000000 > {output.strandinfo}
 # Get strandedness to calculate Forward Probability
 fp=$(tail -n1 {output.strandinfo} | awk '{{if($NF > 0.75) print "0.0"; else if ($NF<0.25) print "1.0"; else print "0.5";}}')
