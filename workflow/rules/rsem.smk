@@ -92,8 +92,6 @@ if [ "{params.peorse}" == "PE" ];then
     --twopassMode Basic \
     --quantMode GeneCounts TranscriptomeSAM
 
-    # index bam file
-    samtools index {output.bam}
 fi
 rm -rf $tmpdir
 """
