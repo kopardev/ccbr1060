@@ -120,6 +120,7 @@ rule get_total_aligned_reads:
     params:
         strandedness=config["library_strand_info"]
     shell:"""
+# strandedness 1=unstranded 2=stranded 3=stranded_reverse
 for f in {input};do
     sample=$(basename $f|awk -F"_p1" '{{print $1}}')
     if [ "{params.strandedness}" == "1" ];then
@@ -168,6 +169,7 @@ rule get_star_tpm:
     shell:"""
 dn=$(dirname {output.tpm})
 cd $dn
+# strandedness 1=unstranded 2=stranded 3=stranded_reverse
 strandedness="no"
 if [ "{params.strandedness}" == "2" ];then strandedness="yes";fi
 if [ "{params.strandedness}" == "3" ];then strandedness="reverse";fi
