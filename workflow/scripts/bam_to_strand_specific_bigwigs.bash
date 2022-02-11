@@ -101,5 +101,7 @@ rm -f ${TMPDIR}/${SAMPLE}.fwd*.bg ${TMPDIR}/${SAMPLE}.rev*.bg ${TMPDIR}/${SAMPLE
 
 
 # TODO:
-# logic needs to be updated using 
+# the above logic is copied from 
+# https://github.com/CCBR/Pipeliner/blob/activeDev/Results-template/Scripts/bam2strandedbw.pe.sh
+# but it needs to be updated using
 # https://josephcckuo.wordpress.com/2016/11/18/splitting-reads-in-a-bam-file-by-strands/
