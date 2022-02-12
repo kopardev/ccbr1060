@@ -2,6 +2,16 @@
 # output site lists
 # which can then be filtered to generate integration window bed file
 
+# aggregate chimeric junctions file have the following columns:
+#     1. non-shRNA chromosome in the chimeric junction
+#     2. coordinate on chromosome in col 1.
+#     3. read coverage aggregated across all replicates in which this 
+#     non-shRNA+coordinate combination was found
+
+# Many integration site estimates from the chimeric junctions file fall within a 
+# few bps of each other. These are collapsed to a single coordinate within 100 bp
+# with the highest read depth coordinate as representative
+
 class site:
 	def __init__(self,chrom,coordinate,count):
 		self.chrom=chrom
