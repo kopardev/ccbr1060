@@ -113,6 +113,18 @@ bash {params.script} --sample {params.sample} --bam {input.bam}
 """
     
 rule get_total_aligned_reads:
+    """
+    @Description:
+        Use STAR per Gene reads output to calculate total number of reads aligned per sample
+    @Inputs:
+        @param: str <list>
+        list of ReadsPerGene.out.tab files from STAR
+    @Outputs:
+        @param: str <tsv_file>
+        Columns:
+            1. samplename or replicate name
+            2. sum of aligned reads per sample according to STAR
+    """
     input:
         expand(join(RESULTSDIR,"{sample}","STAR","withChimericJunctions","{sample}_p1.ReadsPerGene.out.tab"),sample=SAMPLES)
     output:
