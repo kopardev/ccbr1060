@@ -144,15 +144,27 @@ rule annotate_integration_windows:
         lab-verified ones. "genes.bed" files created before running the pipeline for hg38
         is used for extracting the annotations.
     @Inputs:
-    @param: iwbed <bed_file>
-        Integration windows bed6 file. score = number of integration sites in the window.
-    @param: lvbed <bed_file>
-        Lab-verified integration sites in bed format.
+        @param: iwbed <bed_file>
+            Integration windows bed6 file. score = number of integration sites in the window.
+        @param: lvbed <bed_file>
+            Lab-verified integration sites in bed format.
     @Outputs:
-    @param: iwbedannotationlookup <tsv_file>
-    @param: iwbedannotatedbed <bed_file>
-    @param: lvbedannotationlookup <tsv_file>
-    @param: lvbedannotatedbed <bed_file>
+        @param: iwbedannotationlookup <tsv_file>
+            TSV file with columns:
+            1: region to be annotated: <chr>:<start>-<end>|<score>|<strand> format
+            2: annotation from genes.bed: <chr>:<start>-<end>|<ensembl_id>_<genename>|<strand> format
+        @param: iwbedannotatedbed <bed_file>
+            BED6 file with name column of the format:
+            <chr>:<start>-<end>|<score>|<strand>#<chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>#<chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>... ie <region to-be annotated>#<annotation1>#<annotation2> 
+            i.e. "#"separated values with multiple annotations 2nd item onwards
+        @param: lvbedannotationlookup <tsv_file>
+            TSV file with columns:
+            1: region to be annotated: <chr>:<start>-<end>|<score>|<strand> format
+            2: annotation from genes.bed: <chr>:<start>-<end>|<ensembl_id>_<genename>|<strand> format
+        @param: lvbedannotatedbed <bed_file>
+            BED6 file with name column of the format:
+            <chr>:<start>-<end>|<score>|<strand>#<chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>#<chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>... ie <region to-be annotated>#<annotation1>#<annotation2> 
+            i.e. "#"separated values with multiple annotations 2nd item onwards
     """
     input:
         iwbed=rules.make_integration_windows.output.iwbed,
