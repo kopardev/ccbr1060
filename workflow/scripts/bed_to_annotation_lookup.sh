@@ -1,4 +1,8 @@
 #!/bin/bash
+# @Description:
+# @param1: bed6 file to be annotated (bedfile with only 3 columns will cause weird behavior)
+# @param2: bed6 to extract annotations from "genes.bed6" already created for hg38
+# @param3: tab-delimited lookup table for @param1
 module load bedtools
 inBed=$1
 genesBed6=$2

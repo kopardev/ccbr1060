@@ -1,4 +1,8 @@
 def get_junction_files(wildcards):
+    """
+    @Description:
+    Return a list of STAR chimeric.out.junctions files for all replicates of a sample.
+    """
     samples=GROUP2SAMPLES[wildcards.group]
     junction_files=list()
     for s in samples:
@@ -12,6 +16,46 @@ def get_verified_sites_bed(wildcards):
 localrules: get_filtered_chimeric_junctions, make_integration_windows, annotate_integration_windows, nearest_lab_verified_site_lookup, create_count_matrix, annotate_junctions_init, make_excel_workbooks, make_counts_excel_workbook, plot_shRNA_coordinate_distribution, plot_per_iw_distribution, make_annotated_junctions_files_megalist
 
 rule get_filtered_chimeric_junctions:
+    """
+    @Description
+    Filter STAR chimeric junction output to keep:
+    * one read per readid
+    * chimeric junction involving shRNA as donor or acceptor
+    * each junction should have atleast nreads_threshold number of read coverage
+    @Input:
+        List of STAR chimeric junction files for all replicates of a sample.
+        Each chimeric junction file is tab-delimited with the following columns:
+        1.	Chromosome of the donor.
+        2.	First base of the intron of the donor (1-based).
+        3.	Strand of the donor.
+        4.	Chromosome of the acceptor.
+        5.	First base of the intron of the acceptor (1-based).
+        6.	Strand of the acceptor.
+        7.	N/A—not used, but is present to be compatible with other tools. It will always be 1.
+        8.	N/A—not used, but is present to be compatible with other tools. It will always be *.
+        9.	N/A—not used, but is present to be compatible with other tools. It will always be *.
+        10.	Read name.
+        11.	First base of the first segment, on the + strand.
+        12.	CIGAR of the first segment.
+        13.	First base of the second segment.
+        14.	CIGAR of the second segment.
+    @Output:
+        @param: junctions <tsv_file>
+        TSV output file reporting shRNA specific chimeric junctions with the following tabs:
+            1. read depth 
+            2. non-shRNA chromosome in the chimeric junction
+            3. coordinate on chromosome in col 2.
+            4. replicate name
+        @param: aggregate_junctions <tsv_file>
+        TSV file derived from the above junctions output file with the following tabs:
+            1. non-shRNA chromosome in the chimeric junction
+            2. coordinate on chromosome in col 1.
+            3. read coverage aggregated across all replicates in which this 
+            non-shRNA+coordinate combination was found
+        @param: host_donor_acceptor_sites_bed <bed_file>
+        BED file derived from the above aggregate_junctions file. This give some idea where the
+        shRNA could be integrating with the host genome.
+    """
     input:
         get_junction_files
     output:
@@ -35,6 +79,28 @@ cat {output.aggregate_junctions} | awk -v OFS="\\t" '{{for (i=0;i<$3;i++){{print
 """
 
 rule make_integration_windows:
+    """
+    @Description:
+    Use chimeric junctions aggregated accross multiple replicates and generate a bed file of
+    plausible integration windows. Merge overlapping windows. Score windows by number of integration
+    sites in the window.
+    @Input:
+        @param: aggregate_junctions <tsv_file>
+        TSV file derived from the above with the following tabs:
+            1. non-shRNA chromosome in the chimeric junction
+            2. coordinate on chromosome in col 1.
+            3. read coverage aggregated across all replicates in which this 
+            non-shRNA+coordinate combination was found
+        @param: lab_verified_bed <bed_file>
+        User-defined bed file of lab-verified shRNA integration sites
+        @param: host_donor_acceptor_sites_bed <bed_file>
+        BED file derived from the above aggregate_junctions file. This gives some idea where the
+        shRNA could be integrating with the host genome.
+    @Output:
+        @param: iwbed <bed_file>
+        BED file of shRNA integration sites in host with 
+        score = number of integration sites in each integration window.
+    """
     input:
         aggregate_junctions=rules.get_filtered_chimeric_junctions.output.aggregate_junctions,
         lab_verified_bed=get_verified_sites_bed,
@@ -50,10 +116,21 @@ rule make_integration_windows:
     shell:"""
 TMPDIR="/dev/shm/{params.group}"
 if [ ! -d $TMPDIR ];then mkdir -p $TMPDIR;fi
+# create_integration_windows.py collapse integration sites which are within 100bp of each
+# other into a single coordinate with aggregated site sites
+# grep-ing for "Sitelist" in the output will give lines with following space-separated 
+# relevant columns
+# $4 = chr
+# $6 = bestcoordinate or representative coordinate for all integration sites in the same 100 bp window
+# $8 = number of sites in this sitelist .. number of integration sites in this 100 bp window
+# $10 = cumulative sum of all reads of all sites in this 100 bp window
 python {params.script} {input.aggregate_junctions} | grep SiteList | \
  awk -v OFS="\\t" -v t="{params.flanking_width}" '{{print $4,$6-t,$6+t-1}}' | sed "s@,@@g" | sort -k1,1 -k2,2n > $TMPDIR/integration_windows.bed
+# merge intersecting integration windows
 bedtools merge -i $TMPDIR/integration_windows.bed > $TMPDIR/integration_windows.bed.tmp
 mv $TMPDIR/integration_windows.bed.tmp $TMPDIR/integration_windows.bed
+# add score to the integration windows
+# score = number of host-shrna integrations detected in the window
 bedtools intersect -wa -a $TMPDIR/integration_windows.bed -b {input.host_donor_acceptor_sites_bed} | \
  sort|uniq -c| \
  awk -v OFS="\\t" '{{print $2,$3,$4,".",$1,"."}}' > {output.iwbed}
@@ -61,6 +138,22 @@ rm -rf $TMPDIR
 """
 
 rule annotate_integration_windows:
+    """
+    @Description:
+        Annotate the integration windows, both the bioinformatically detected ones and the
+        lab-verified ones. "genes.bed" files created before running the pipeline for hg38
+        is used for extracting the annotations.
+    @Inputs:
+    @param: iwbed <bed_file>
+        Integration windows bed6 file. score = number of integration sites in the window.
+    @param: lvbed <bed_file>
+        Lab-verified integration sites in bed format.
+    @Outputs:
+    @param: iwbedannotationlookup <tsv_file>
+    @param: iwbedannotatedbed <bed_file>
+    @param: lvbedannotationlookup <tsv_file>
+    @param: lvbedannotatedbed <bed_file>
+    """
     input:
         iwbed=rules.make_integration_windows.output.iwbed,
         lvbed=get_verified_sites_bed
