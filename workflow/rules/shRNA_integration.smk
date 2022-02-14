@@ -192,6 +192,23 @@ python {params.script2} {output.lvbedannotationlookup} > {output.lvbedannotatedb
 """
 
 rule nearest_lab_verified_site_lookup:
+    """
+    @Description:
+    Find closest lab-verfied integration site to each site and report the distance to it in bp
+    @Inputs:
+        @param: iw <bed6_file>
+        @param: lv <bed6_file>
+        Both inputs are annotated BED6 TSV with "name" or 4th column as:
+        <chr>:<start>-<end>|<score>|<strand>#<chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>#<chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>... ie <region to-be annotated>#<annotation1>#<annotation2> 
+        i.e. "#"separated values with multiple annotations 2nd item onwards   
+    @Outputs:
+        @param: iwnearestlvlookup <tsv_file>
+        columns:
+        1. iw in format: <chr>:<start>-<end>|<score>|<strand>#<chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>#<chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>... ie <region to-be annotated>#<annotation1>#<annotation2> 
+        2. lv in format: <chr>:<start>-<end>|<score>|<strand>#<chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>#<chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>... ie <region to-be annotated>#<annotation1>#<annotation2> 
+        3. distance in bp.
+        Note of col3 (distance in bp) = "-1", then no lab-verified integration site found on the chromosome of interest
+    """
     input:
         iw=rules.annotate_integration_windows.output.iwbedannotatedbed,
         lv=rules.annotate_integration_windows.output.lvbedannotatedbed,
