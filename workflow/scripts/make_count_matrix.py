@@ -1,3 +1,45 @@
+# ex. usage in Snakefile:
+# python {params.script1} {input.iwnearestlvlookup} {input.nreads} {params.samplemanifest} $counts_files > {output.count_matrix}
+# @Inputs:
+# @param: iwnearestlvlookup <tsv_file>
+# TSV with columns:
+# 	1. iw in format: <chr>:<start>-<end>|<score>|<strand>#<chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>#<chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>... ie <region to-be annotated>#<annotation1>#<annotation2> 
+# 	2. lv in format: <chr>:<start>-<end>|<score>|<strand>#<chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>#<chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>... ie <region to-be annotated>#<annotation1>#<annotation2> 
+# 	3. distance in bp. Note of col3 (distance in bp) = "-1", then no lab-verified integration site found on the chromosome of interest
+# @param: nreads <tsv_file>
+# TSV with columns:
+# 	1. samplename or replicate name
+# 	2. sum of aligned reads per sample according to STAR
+# @param: samplemanifest <tsv_file> with header
+# TSV with columns:
+# 1. sampleName --> this is actually replicate name
+# 2. group --> replicates that belong to the same group ...its name ... This is actually samplename
+# 3. dox --> Dox added Y or N
+# 4. path_to_R1_fastq
+# 5. path_to_R2_fastq
+# @params: list of counts files <space-separated list> 1 for each replicate
+# each counts file is a TSV with columns:
+# 1. iw --> chr:start-end|score|strand ... score = number of integration sites in this window for all replicates of this sample
+# 2. count --> count chimeric_shRNA_donor_acceptor_sites in this window for this replicate
+# @Outputs:
+# @param: count_matrix <tsv_file>
+# TSV with columns:
+# 1. integration_window
+# format: <chr>:<start>-<end>|<score>|<strand> score=number of integration sites in each integration window aggregated accross sample replicates
+# 2. integration_window_annotation
+# format: <chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>#<chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>... ie <annotation1>#<annotation2> 
+# 3. nearest_lab_verified_integration_site
+# format: <chr>:<start>-<end>|<score>|<strand> score=number of reads lab-verified
+# 4. nearest_lab_verified_integration_site_annotation
+# format: <chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>#<chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>... ie <annotation1>#<annotation2>
+# 5. distance_to_nearest_lab_verified_integration_site
+# format: distance in bp. Note if = "-1", then no lab-verified integration site found on the chromosome of interest	
+# 6. Res1_raw_counts	Res2_raw_counts	Res3_raw_counts
+# raw counts for each replicate in tab-delimited columns
+# 7. Res1_normalized_counts	Res2_normalized_counts	Res3_normalized_counts
+# normalized counts for each replicate in tab-delimited columns	
+# 8. t_test_p_value
+
 import sys,os
 import pandas as pd
 import numpy as np

@@ -18,10 +18,10 @@ localrules: get_filtered_chimeric_junctions, make_integration_windows, annotate_
 rule get_filtered_chimeric_junctions:
     """
     @Description
-    Filter STAR chimeric junction output to keep:
-    * one read per readid
-    * chimeric junction involving shRNA as donor or acceptor
-    * each junction should have atleast nreads_threshold number of read coverage
+        Filter STAR chimeric junction output to keep:
+        * one read per readid
+        * chimeric junction involving shRNA as donor or acceptor
+        * each junction should have atleast nreads_threshold number of read coverage
     @Input:
         List of STAR chimeric junction files for all replicates of a sample.
         Each chimeric junction file is tab-delimited with the following columns:
@@ -81,9 +81,9 @@ cat {output.aggregate_junctions} | awk -v OFS="\\t" '{{for (i=0;i<$3;i++){{print
 rule make_integration_windows:
     """
     @Description:
-    Use chimeric junctions aggregated accross multiple replicates and generate a bed file of
-    plausible integration windows. Merge overlapping windows. Score windows by number of integration
-    sites in the window.
+        Use chimeric junctions aggregated accross multiple replicates and generate a bed file of
+        plausible integration windows. Merge overlapping windows. Score windows by number of integration
+        sites in the window.
     @Input:
         @param: aggregate_junctions <tsv_file>
         TSV file derived from the above with the following tabs:
@@ -99,7 +99,7 @@ rule make_integration_windows:
     @Output:
         @param: iwbed <bed_file>
         BED file of shRNA integration sites in host with 
-        score = number of integration sites in each integration window.
+        score = number of integration sites in each integration window aggregated accross sample replicates
     """
     input:
         aggregate_junctions=rules.get_filtered_chimeric_junctions.output.aggregate_junctions,
@@ -145,7 +145,7 @@ rule annotate_integration_windows:
         is used for extracting the annotations.
     @Inputs:
         @param: iwbed <bed_file>
-            Integration windows bed6 file. score = number of integration sites in the window.
+            Integration windows bed6 file. score = number of integration sites in the window aggregated accross sample replicates
         @param: lvbed <bed_file>
             Lab-verified integration sites in bed format.
     @Outputs:
@@ -194,7 +194,7 @@ python {params.script2} {output.lvbedannotationlookup} > {output.lvbedannotatedb
 rule nearest_lab_verified_site_lookup:
     """
     @Description:
-    Find closest lab-verfied integration site to each site and report the distance to it in bp
+        Find closest lab-verfied integration site to each site and report the distance to it in bp
     @Inputs:
         @param: iw <bed6_file>
         @param: lv <bed6_file>
@@ -204,10 +204,9 @@ rule nearest_lab_verified_site_lookup:
     @Outputs:
         @param: iwnearestlvlookup <tsv_file>
         columns:
-        1. iw in format: <chr>:<start>-<end>|<score>|<strand>#<chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>#<chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>... ie <region to-be annotated>#<annotation1>#<annotation2> 
-        2. lv in format: <chr>:<start>-<end>|<score>|<strand>#<chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>#<chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>... ie <region to-be annotated>#<annotation1>#<annotation2> 
-        3. distance in bp.
-        Note of col3 (distance in bp) = "-1", then no lab-verified integration site found on the chromosome of interest
+            1. iw in format: <chr>:<start>-<end>|<score>|<strand>#<chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>#<chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>... ie <region to-be annotated>#<annotation1>#<annotation2> 
+            2. lv in format: <chr>:<start>-<end>|<score>|<strand>#<chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>#<chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>... ie <region to-be annotated>#<annotation1>#<annotation2> 
+            3. distance in bp. Note of col3 (distance in bp) = "-1", then no lab-verified integration site found on the chromosome of interest
     """
     input:
         iw=rules.annotate_integration_windows.output.iwbedannotatedbed,
@@ -227,6 +226,48 @@ bedtools closest -d -a {input.iw} -b {input.lv}|cut -f4,10,13 > {output.iwneares
 
 
 rule create_count_matrix:
+    """
+    @Description:
+    @Inputs:
+        @param: iwbed <bed6_file>
+        BED file of shRNA integration sites in host with 
+        score = number of integration sites in each integration window aggregated accross sample replicates
+        @param: junctions <tsv_file>
+        TSV output file reporting shRNA specific chimeric junctions with the following tabs:
+            1. read depth 
+            2. non-shRNA chromosome in the chimeric junction
+            3. coordinate on chromosome in col 2.
+            4. replicate name
+        @param: iwnearestlvlookup <tsv_file>
+        TSV with columns:
+            1. iw in format: <chr>:<start>-<end>|<score>|<strand>#<chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>#<chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>... ie <region to-be annotated>#<annotation1>#<annotation2> 
+            2. lv in format: <chr>:<start>-<end>|<score>|<strand>#<chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>#<chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>... ie <region to-be annotated>#<annotation1>#<annotation2> 
+            3. distance in bp. Note of col3 (distance in bp) = "-1", then no lab-verified integration site found on the chromosome of interest
+        @param: nreads <txt_file>
+        TSV with columns:
+            1. samplename or replicate name
+            2. sum of aligned reads per sample according to STAR
+    @Outputs:
+        @param: count_matrix <tsv_file>
+        TSV with columns:
+        1. integration_window
+        format: <chr>:<start>-<end>|<score>|<strand> score=number of integration sites in each integration window aggregated accross sample replicates
+        2. integration_window_annotation
+        format: <chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>#<chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>... ie <annotation1>#<annotation2> 
+        3. nearest_lab_verified_integration_site
+        format: <chr>:<start>-<end>|<score>|<strand> score=number of reads lab-verified
+        4. nearest_lab_verified_integration_site_annotation
+        format: <chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>#<chr>:<start>-<end>|<ensembl_id>_<genename>|<strand>... ie <annotation1>#<annotation2>
+        5. distance_to_nearest_lab_verified_integration_site
+        format: distance in bp. Note if = "-1", then no lab-verified integration site found on the chromosome of interest	
+        6. Res1_raw_counts	Res2_raw_counts	Res3_raw_counts
+        raw counts for each replicate in tab-delimited columns
+        7. Res1_normalized_counts	Res2_normalized_counts	Res3_normalized_counts
+        normalized counts for each replicate in tab-delimited columns
+        normalized counts = raw counts * 1e6 / number of reads aligned for this replicate according to STAR (sum of ReadsPerGene)	
+        8. t_test_p_value
+        pvalue of t_test between no_dox and dox samples with the assumption that no_dox counts are less than dox counts
+    """
     input:
         iwbed=rules.make_integration_windows.output.iwbed,
         junctions=rules.get_filtered_chimeric_junctions.output.junctions,
